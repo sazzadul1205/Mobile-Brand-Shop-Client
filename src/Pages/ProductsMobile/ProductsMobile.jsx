@@ -13,7 +13,7 @@ const mobileData = [
     price: "17886.08",
     operatingSystem: "Android",
     releaseDate: "2023",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "164.4mm",
       width: "76.8mm",
       depth: "9.1mm",
@@ -44,7 +44,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Fingerprint scanner (side-mounted), Face unlock",
     otherFeatures: {
@@ -64,7 +64,7 @@ const mobileData = [
     price: "15485.26",
     operatingSystem: "Android",
     releaseDate: "2022",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "164.2mm",
       width: "75.9mm",
       depth: "9.1mm",
@@ -95,7 +95,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Face unlock",
     otherFeatures: {
@@ -115,7 +115,7 @@ const mobileData = [
     price: "16685.67",
     operatingSystem: "Android",
     releaseDate: "2022",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "164.4mm",
       width: "76.3mm",
       depth: "9.1mm",
@@ -146,7 +146,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Face unlock",
     otherFeatures: {
@@ -166,7 +166,7 @@ const mobileData = [
     price: "23888.12",
     operatingSystem: "Android",
     releaseDate: "2023",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "166.8mm",
       width: "77.2mm",
       depth: "9.4mm",
@@ -197,7 +197,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Fingerprint scanner (side-mounted), Face unlock",
     otherFeatures: {
@@ -217,7 +217,7 @@ const mobileData = [
     price: "19086.49",
     operatingSystem: "Android",
     releaseDate: "2022",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "164.7mm",
       width: "76.7mm",
       depth: "9.1mm",
@@ -248,7 +248,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Fingerprint scanner (side-mounted), Face unlock",
     otherFeatures: {
@@ -268,7 +268,7 @@ const mobileData = [
     price: "17886.08",
     operatingSystem: "Android",
     releaseDate: "2023",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "164.4mm",
       width: "76.8mm",
       depth: "9.1mm",
@@ -299,7 +299,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Fingerprint scanner (side-mounted), Face unlock",
     otherFeatures: {
@@ -319,7 +319,7 @@ const mobileData = [
     price: "19086.49",
     operatingSystem: "Android",
     releaseDate: "2022",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "164.7mm",
       width: "76.7mm",
       depth: "9.1mm",
@@ -350,7 +350,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Fingerprint scanner (side-mounted), Face unlock",
     otherFeatures: {
@@ -370,7 +370,7 @@ const mobileData = [
     price: "21487.30",
     operatingSystem: "Android",
     releaseDate: "2023",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "166.7mm",
       width: "76.6mm",
       depth: "8.9mm",
@@ -401,7 +401,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Fingerprint scanner (side-mounted), Face unlock",
     otherFeatures: {
@@ -421,7 +421,7 @@ const mobileData = [
     price: "79999.00",
     operatingSystem: "iOS",
     releaseDate: "2022",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "146.7mm",
       width: "71.5mm",
       depth: "7.8mm",
@@ -452,7 +452,7 @@ const mobileData = [
       chargingPort: "Lightning",
       simCardType: "Nano-SIM, eSIM",
       headphoneJack: "No",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Face ID",
     otherFeatures: {
@@ -472,7 +472,7 @@ const mobileData = [
     price: "15999.00",
     operatingSystem: "Android",
     releaseDate: "2022",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "159.9mm",
       width: "73.9mm",
       depth: "8.1mm",
@@ -503,7 +503,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Side-mounted fingerprint scanner",
     otherFeatures: {
@@ -523,7 +523,7 @@ const mobileData = [
     price: "66999.00",
     operatingSystem: "Android",
     releaseDate: "2022",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "163mm",
       width: "73.9mm",
       depth: "8.5mm",
@@ -554,7 +554,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "No",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Under-display fingerprint scanner",
     otherFeatures: {
@@ -574,7 +574,7 @@ const mobileData = [
     price: "69999.00",
     operatingSystem: "Android",
     releaseDate: "2022",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "159.3mm",
       width: "73.3mm",
       depth: "8.7mm",
@@ -605,7 +605,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "No",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Under-display fingerprint scanner",
     otherFeatures: {
@@ -625,7 +625,7 @@ const mobileData = [
     price: "62999.00",
     operatingSystem: "Android",
     releaseDate: "2022",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "163.2mm",
       width: "75.5mm",
       depth: "8.2mm",
@@ -656,7 +656,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "No",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Under-display fingerprint scanner",
     otherFeatures: {
@@ -676,7 +676,7 @@ const mobileData = [
     price: "59999.00",
     operatingSystem: "Android",
     releaseDate: "2022",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "165.1mm",
       width: "75.2mm",
       depth: "8.3mm",
@@ -707,7 +707,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "No",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Under-display fingerprint scanner",
     otherFeatures: {
@@ -727,7 +727,7 @@ const mobileData = [
     price: "99999.00",
     operatingSystem: "Android",
     releaseDate: "2021",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "165mm",
       width: "71mm",
       depth: "8.2mm",
@@ -758,7 +758,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Fingerprint scanner (side-mounted)",
     otherFeatures: {
@@ -778,7 +778,7 @@ const mobileData = [
     price: "34999.00",
     operatingSystem: "Android",
     releaseDate: "2021",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "171mm",
       width: "78mm",
       depth: "9mm",
@@ -809,7 +809,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Side-mounted fingerprint scanner",
     otherFeatures: {
@@ -829,7 +829,7 @@ const mobileData = [
     price: "64999.00",
     operatingSystem: "HarmonyOS",
     releaseDate: "2021",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "158.8mm",
       width: "73.4mm",
       depth: "7.9mm",
@@ -860,7 +860,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "No",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Under-display fingerprint scanner",
     otherFeatures: {
@@ -880,7 +880,7 @@ const mobileData = [
     price: "112990",
     operatingSystem: "iOS",
     releaseDate: "2021",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "146.7mm",
       width: "71.5mm",
       depth: "7.65mm",
@@ -911,7 +911,7 @@ const mobileData = [
       chargingPort: "Lightning",
       simCardType: "Nano-SIM, eSIM",
       headphoneJack: "No",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Face ID",
     otherFeatures: {
@@ -931,7 +931,7 @@ const mobileData = [
     price: "18499",
     operatingSystem: "Android",
     releaseDate: "2022",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "159.9mm",
       width: "73.9mm",
       depth: "8.1mm",
@@ -962,7 +962,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Fingerprint scanner (side-mounted), Face unlock",
     otherFeatures: {
@@ -982,7 +982,7 @@ const mobileData = [
     price: "64999",
     operatingSystem: "Android",
     releaseDate: "2021",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "163.2mm",
       width: "73.6mm",
       depth: "8.7mm",
@@ -1013,7 +1013,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "No",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Fingerprint scanner (under-display), Face unlock",
     otherFeatures: {
@@ -1033,7 +1033,7 @@ const mobileData = [
     price: "71999",
     operatingSystem: "Android",
     releaseDate: "2021",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "163.9mm",
       width: "75.9mm",
       depth: "8.9mm",
@@ -1064,7 +1064,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, eSIM",
       headphoneJack: "No",
-      speaker: "Stereo",
+      speakers: "Stereo",
     },
     biometrics: "Fingerprint scanner (under-display), Face unlock",
     otherFeatures: {
@@ -1084,7 +1084,7 @@ const mobileData = [
     price: "14999",
     operatingSystem: "Android",
     releaseDate: "2021",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "164.3mm",
       width: "76.1mm",
       depth: "8.4mm",
@@ -1115,7 +1115,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Fingerprint scanner (side-mounted), Face unlock",
     otherFeatures: {
@@ -1135,7 +1135,7 @@ const mobileData = [
     price: "29999",
     operatingSystem: "Android",
     releaseDate: "2021",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "156.8mm",
       width: "72.1mm",
       depth: "7.6mm",
@@ -1166,7 +1166,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "No",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Fingerprint scanner (under-display), Face unlock",
     otherFeatures: {
@@ -1186,7 +1186,7 @@ const mobileData = [
     price: "25999",
     operatingSystem: "Android",
     releaseDate: "2021",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "159.2mm",
       width: "73.5mm",
       depth: "8mm",
@@ -1217,7 +1217,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Fingerprint scanner (under-display), Face unlock",
     otherFeatures: {
@@ -1237,7 +1237,7 @@ const mobileData = [
     price: "34999",
     operatingSystem: "Android",
     releaseDate: "2021",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "163mm",
       width: "76mm",
       depth: "7mm",
@@ -1268,7 +1268,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "No",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Fingerprint scanner (side-mounted), Face unlock",
     otherFeatures: {
@@ -1288,7 +1288,7 @@ const mobileData = [
     price: "19999",
     operatingSystem: "Android",
     releaseDate: "2021",
-    weightDimensions: {
+    weightAndDimensions: {
       height: "173.8mm",
       width: "77.7mm",
       depth: "8.9mm",
@@ -1319,7 +1319,7 @@ const mobileData = [
       chargingPort: "USB Type-C",
       simCardType: "Nano-SIM, Dual SIM",
       headphoneJack: "Yes",
-      speaker: "Mono",
+      speakers: "Mono",
     },
     biometrics: "Fingerprint scanner (side-mounted), Face unlock",
     otherFeatures: {

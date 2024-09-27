@@ -28,8 +28,8 @@ const Navbar = () => {
       subMenu: [
         { label: "MOBILE", link: "/Products-Mobile" },
         { label: "LAPTOP", link: "/Products-Laptop" },
-        { label: "TABLET", link: "/Products-Tablet" },
-        { label: "DESKTOP", link: "/Products-Desktops" },
+        { label: "TABLET", link: "/Products-Tablets" },
+        { label: "DESKTOP", link: "/Products-Desktop" },
       ],
     },
     { label: "BLOGS", link: "/Blogs", subMenu: [] },

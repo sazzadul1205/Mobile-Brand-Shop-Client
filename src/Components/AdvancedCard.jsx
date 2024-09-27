@@ -89,18 +89,31 @@ const AdvancedCard = ({ data, index, liked, toggleLike }) => {
               <h3 className="font-bold text-xl p-2 border border-gray-300">
                 {data.brand} {data.model}
               </h3>
-              <h3 className="font-medium text-xl p-2 border border-gray-300">
-                <span className="font-semibold">Condition</span> :{" "}
-                {data.condition}
-              </h3>
-              <h3 className="font-medium text-xl p-2 border border-gray-300">
-                <span className="font-semibold">Operating System</span> :{" "}
-                {data.operatingSystem}
-              </h3>
-              <h3 className="font-medium text-xl p-2 border border-gray-300">
-                <span className="font-semibold">Release Date</span> :{" "}
-                {data.releaseDate}
-              </h3>
+              {data.operatingSystem && (
+                <h3 className="font-medium text-xl p-2 border border-gray-300">
+                  <span className="font-semibold">Operating System</span> :{" "}
+                  {data.operatingSystem}
+                </h3>
+              )}
+              {data.condition && (
+                <h3 className="font-medium text-xl p-2 border border-gray-300">
+                  <span className="font-semibold">Condition</span> :{" "}
+                  {data.condition}
+                </h3>
+              )}
+              {data.releaseDate && (
+                <h3 className="font-medium text-xl p-2 border border-gray-300">
+                  <span className="font-semibold">Release Date</span> :{" "}
+                  {data.releaseDate}
+                </h3>
+              )}
+              {data.price && (
+                <p className="font-medium text-xl pt-5 flex items-center">
+                  <span className="font-semibold">Price</span> : {data.price}
+                  <FaBangladeshiTakaSign className="text-black text-lg ml-2" />
+                </p>
+              )}
+              {data.inStock && <p className="text-green-500">In Stock</p>}
               <button
                 className="bg-orange-500 hover:bg-orange-600 text-white text-xl font-semibold mt-4 py-2 px-10 w-full rounded-full mx-auto"
                 onClick={handleAddToCart}
@@ -112,156 +125,405 @@ const AdvancedCard = ({ data, index, liked, toggleLike }) => {
             {/* Right */}
             <div className="space-y-3">
               {/* Weight and Dimensions */}
-              <div>
-                <h4 className="font-bold text-lg py-1">Weight & Dimensions:</h4>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Height :</span>
-                  {data.weightDimensions.height}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Width :</span>
-                  {data.weightDimensions.width}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Depth :</span>
-                  {data.weightDimensions.depth}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Weight :</span>
-                  {data.weightDimensions.weight}
-                </p>
-              </div>
+              {data.weightAndDimensions && (
+                <div>
+                  <h4 className="font-bold text-lg py-1">
+                    Weight & Dimensions:
+                  </h4>
+                  {data.weightAndDimensions.height && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Height :</span>
+                      {data.weightAndDimensions.height}
+                    </p>
+                  )}
+                  {data.weightAndDimensions.width && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Width :</span>
+                      {data.weightAndDimensions.width}
+                    </p>
+                  )}
+                  {data.weightAndDimensions.depth && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Depth :</span>
+                      {data.weightAndDimensions.depth}
+                    </p>
+                  )}
+                  {data.weightAndDimensions.weight && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Weight :</span>
+                      {data.weightAndDimensions.weight}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Display */}
-              <div>
-                <h4 className="font-bold text-lg py-1">Display:</h4>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Screen Size :</span>
-                  {data.display.screenSize}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Resolution :</span>
-                  {data.display.resolution}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Technology :</span>
-                  {data.display.displayTechnology}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Refresh Rate :</span>
-                  {data.display.refreshRate}
-                </p>
-              </div>
+              {data.display && (
+                <div>
+                  <h4 className="font-bold text-lg py-1">Display :</h4>
+                  {data.display.screenSize && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Screen Size :</span>
+                      {data.display.screenSize}
+                    </p>
+                  )}
+                  {data.display.resolution && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Resolution :</span>
+                      {data.display.resolution}
+                    </p>
+                  )}
+                  {data.display.displayType && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Display Type :</span>
+                      {data.display.displayType}
+                    </p>
+                  )}
+                  {data.display.displayTechnology && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">
+                        Display Technology :
+                      </span>
+                      {data.display.displayTechnology}
+                    </p>
+                  )}
+                  {data.display.touchScreen && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Touch Screen :</span>
+                      {data.display.touchScreen}
+                    </p>
+                  )}
+                  {data.display.refreshRate && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Refresh Rate :</span>
+                      {data.display.refreshRate}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Performance */}
-              <div>
-                <h4 className="font-bold text-lg py-1">Performance:</h4>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Processor :</span>
-                  {data.performance.processor}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">RAM :</span>
-                  {data.performance.ram}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Storage :</span>
-                  {data.performance.storageOptions.join(", ")}
-                </p>
-              </div>
+              {data.performance && (
+                <div>
+                  <h4 className="font-bold text-lg py-1">Performance:</h4>
+                  {data.performance.processor && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Processor :</span>
+                      {data.performance.processor}
+                    </p>
+                  )}
+                  {data.performance.ram && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">RAM :</span>
+                      {data.performance.ram}
+                    </p>
+                  )}
+                  {data.performance.storage && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Storage :</span>
+                      {data.performance.storage}
+                    </p>
+                  )}
+                  {data.performance.storageOptions && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Storage Options :</span>
+                      {data.performance.storageOptions}
+                    </p>
+                  )}
+                  {data.performance.graphicsCard && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Graphics Card :</span>
+                      {data.performance.graphicsCard}
+                    </p>
+                  )}
+                  {data.performance.coolingSystem && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Cooling System :</span>
+                      {data.performance.coolingSystem}
+                    </p>
+                  )}
+                </div>
+              )}
 
-              {/* Camera */}
-              <div>
-                <h4 className="font-bold text-lg py-1">Camera:</h4>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Main Camera :</span>
-                  {data.camera.mainCamera}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Front Camera :</span>
-                  {data.camera.frontCamera}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Video Recording :</span>
-                  {data.camera.videoRecording}
-                </p>
-              </div>
+              {/* camera */}
+              {data.camera && (
+                <div>
+                  <h4 className="font-bold text-lg py-1">Camera:</h4>
+                  {data.camera.rearCamera && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Rear Camera :</span>
+                      {data.camera.rearCamera}
+                    </p>
+                  )}
+                  {data.camera.mainCamera && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Main Camera :</span>
+                      {data.camera.mainCamera}
+                    </p>
+                  )}
+                  {data.camera.frontCamera && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Front Camera :</span>
+                      {data.camera.frontCamera}
+                    </p>
+                  )}
+                  {data.camera.videoRecording && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Video Recording :</span>
+                      {data.camera.videoRecording}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Battery */}
-              <div>
-                <h4 className="font-bold text-lg py-1">Battery:</h4>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Battery Capacity :</span>
-                  {data.battery.batteryCapacity}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Charging Speed :</span>
-                  {data.battery.chargingSpeed}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Battery Life :</span>
-                  {data.battery.batteryLife}
-                </p>
-              </div>
+              {data.battery && (
+                <div>
+                  <h4 className="font-bold text-lg py-1">Battery:</h4>
+                  {data.battery.batteryCapacity && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Battery Capacity :</span>
+                      {data.battery.batteryCapacity}
+                    </p>
+                  )}
+                  {data.battery.chargingSpeed && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Charging Speed :</span>
+                      {data.battery.chargingSpeed}
+                    </p>
+                  )}
+                  {data.battery.batteryLife && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Battery Life :</span>
+                      {data.battery.batteryLife}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Inputs / Outputs */}
-              <div>
-                <h4 className="font-bold text-lg py-1">Inputs / Outputs:</h4>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Charging Port :</span>
-                  {data.inputsOutputs.chargingPort}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Sim Card Type :</span>
-                  {data.inputsOutputs.simCardType}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Headphone Jack:</span>
-                  {data.inputsOutputs.headphoneJack}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Speaker:</span>
-                  {data.inputsOutputs.speaker}
-                </p>
-              </div>
-
-              {/* biometrics */}
-              <div>
-                <h4 className="font-bold text-lg py-1">biometrics:</h4>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Biometrics</span>
-                  {data.biometrics}
-                </p>
-              </div>
+              {data.inputsOutputs && (
+                <div>
+                  <h4 className="font-bold text-lg py-1">Inputs / Outputs:</h4>
+                  {data.inputsOutputs.usbPorts && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">USB Ports:</span>
+                      {data.inputsOutputs.usbPorts}
+                    </p>
+                  )}
+                  {data.inputsOutputs.hdmiDisplayPort && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">HDMI Display Port :</span>
+                      {data.inputsOutputs.hdmiDisplayPort}
+                    </p>
+                  )}
+                  {data.inputsOutputs.ethernetPort && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Ethernet Port :</span>
+                      {data.inputsOutputs.ethernetPort}
+                    </p>
+                  )}
+                  {data.inputsOutputs.thunderboltPorts && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Thunderbolt Ports:</span>
+                      {data.inputsOutputs.thunderboltPorts}
+                    </p>
+                  )}
+                  {data.inputsOutputs.audioInputOutput && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">
+                        Audio Input / Output :
+                      </span>
+                      {data.inputsOutputs.audioInputOutput}
+                    </p>
+                  )}
+                  {data.inputsOutputs.powerSupply && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Power Supply :</span>
+                      {data.inputsOutputs.powerSupply}
+                    </p>
+                  )}
+                  {data.inputsOutputs.expansionSlots && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Expansion Slots :</span>
+                      {data.inputsOutputs.expansionSlots}
+                    </p>
+                  )}
+                  {data.inputsOutputs.chargingPort && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Charging Port :</span>
+                      {data.inputsOutputs.chargingPort}
+                    </p>
+                  )}
+                  {data.inputsOutputs.simCardType && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Sim Card Type :</span>
+                      {data.inputsOutputs.simCardType}
+                    </p>
+                  )}
+                  {data.inputsOutputs.simCardSlot && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Sim Card Slot :</span>
+                      {data.inputsOutputs.simCardSlot}
+                    </p>
+                  )}
+                  {data.inputsOutputs.headphoneJack && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Headphone Jack :</span>
+                      {data.inputsOutputs.headphoneJack}
+                    </p>
+                  )}
+                  {data.inputsOutputs.speakers && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Speakers :</span>
+                      {data.inputsOutputs.speakers}
+                    </p>
+                  )}
+                  {data.inputsOutputs.biometrics && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Biometrics :</span>
+                      {data.inputsOutputs.biometrics}
+                    </p>
+                  )}
+                  {data.inputsOutputs.sdCardSlot && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">SDCardSlot :</span>
+                      {data.inputsOutputs.sdCardSlot}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Other Features */}
-              <div>
-                <h4 className="font-bold text-lg py-1">Other Features:</h4>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Connectivity:</span>
-                  {data.otherFeatures.connectivity}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">
-                    Water / Dust Resistance:
-                  </span>
-                  {data.otherFeatures.waterDustResistance}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Sensors:</span>
-                  {data.otherFeatures.sensors}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">
-                    Operating System Version:
-                  </span>
-                  {data.otherFeatures.operatingSystemVersion}
-                </p>
-                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
-                  <span className="font-semibold">Color Options:</span>
-                  {data.otherFeatures.colorOptions}
-                </p>
-              </div>
+              {data.biometrics && (
+                <div>
+                  <h4 className="font-bold text-lg py-1">Biometrics:</h4>
+                  {data.biometrics && (
+                    <p className="border border-gray-400 py-2 px-5 ">
+                      {data.biometrics}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Keyboard */}
+              {data.keyboard && (
+                <div>
+                  <h4 className="font-bold text-lg py-1">Keyboard :</h4>
+                  {data.keyboard && (
+                    <p className="border border-gray-400 py-2 px-5 ">
+                      {data.keyboard}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* TrackpadMouseInput */}
+              {data.trackpadMouseInput && (
+                <div>
+                  <h4 className="font-bold text-lg py-1">
+                    Track Pad Mouse Input :
+                  </h4>
+                  {data.trackpadMouseInput && (
+                    <p className="border border-gray-400 py-2 px-5 ">
+                      {data.trackpadMouseInput}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Other Features */}
+              {data.otherFeatures && (
+                <div>
+                  <h4 className="font-bold text-lg py-1">Other Features:</h4>
+                  {data.otherFeatures.operatingSystem && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Operating System :</span>
+                      {data.otherFeatures.operatingSystem}
+                    </p>
+                  )}
+                  {data.otherFeatures.connectivity && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Connectivity :</span>
+                      {data.otherFeatures.connectivity}
+                    </p>
+                  )}
+                  {data.otherFeatures.includedPeripherals && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">
+                        Included Peripherals :
+                      </span>
+                      {data.otherFeatures.includedPeripherals}
+                    </p>
+                  )}
+                  {data.otherFeatures.accessoriesSupport && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">
+                        Accessories Support :
+                      </span>
+                      {data.otherFeatures.accessoriesSupport}
+                    </p>
+                  )}
+                  {data.otherFeatures.webcam && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Webcam :</span>
+                      {data.otherFeatures.webcam}
+                    </p>
+                  )}
+                  {data.otherFeatures.waterDustResistance && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">
+                        Water Dust Resistance :
+                      </span>
+                      {data.otherFeatures.waterDustResistance}
+                    </p>
+                  )}
+                  {data.otherFeatures.speakers && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Speakers :</span>
+                      {data.otherFeatures.speakers}
+                    </p>
+                  )}
+                  {data.otherFeatures.colorOptions && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">colorOptions :</span>
+                      {data.otherFeatures.colorOptions}
+                    </p>
+                  )}
+                  {data.otherFeatures.operatingSystemVersion && (
+                    <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">
+                        Operating System Version :
+                      </span>
+                      {data.otherFeatures.operatingSystemVersion}
+                    </p>
+                  )}
+                  {data.otherFeatures.sensors && (
+                    <div className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Sensors :</span>
+                      <ul className="flex">
+                        {data.otherFeatures.sensors.map((color, index) => (
+                          <li className="mr-2 flex" key={index}>
+                            {color},
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {data.otherFeatures.colorOptions && (
+                    <div className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                      <span className="font-semibold">Color Options :</span>
+                      <ul className="flex">
+                        {data.otherFeatures.colorOptions.map((color, index) => (
+                          <li className="mr-2 flex" key={index}>
+                            {color},
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -271,57 +533,7 @@ const AdvancedCard = ({ data, index, liked, toggleLike }) => {
 };
 
 AdvancedCard.propTypes = {
-  data: PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    model: PropTypes.string.isRequired,
-    brand: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    inStock: PropTypes.bool.isRequired,
-    condition: PropTypes.string.isRequired,
-    operatingSystem: PropTypes.string.isRequired,
-    releaseDate: PropTypes.string.isRequired,
-    biometrics: PropTypes.string.isRequired,
-    weightDimensions: PropTypes.shape({
-      height: PropTypes.string.isRequired,
-      width: PropTypes.string.isRequired,
-      depth: PropTypes.string.isRequired,
-      weight: PropTypes.string.isRequired,
-    }).isRequired,
-    display: PropTypes.shape({
-      screenSize: PropTypes.string.isRequired,
-      resolution: PropTypes.string.isRequired,
-      displayTechnology: PropTypes.string.isRequired,
-      refreshRate: PropTypes.string.isRequired,
-    }).isRequired,
-    performance: PropTypes.shape({
-      processor: PropTypes.string.isRequired,
-      ram: PropTypes.string.isRequired,
-      storageOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
-    }).isRequired,
-    camera: PropTypes.shape({
-      mainCamera: PropTypes.string.isRequired,
-      frontCamera: PropTypes.string.isRequired,
-      videoRecording: PropTypes.string.isRequired,
-    }).isRequired,
-    battery: PropTypes.shape({
-      batteryCapacity: PropTypes.string.isRequired,
-      chargingSpeed: PropTypes.string.isRequired,
-      batteryLife: PropTypes.string.isRequired,
-    }).isRequired,
-    inputsOutputs: PropTypes.shape({
-      chargingPort: PropTypes.string.isRequired,
-      simCardType: PropTypes.string.isRequired,
-      headphoneJack: PropTypes.string.isRequired,
-      speaker: PropTypes.string.isRequired,
-    }).isRequired,
-    otherFeatures: PropTypes.shape({
-      connectivity: PropTypes.string.isRequired,
-      waterDustResistance: PropTypes.string.isRequired,
-      sensors: PropTypes.string.isRequired,
-      operatingSystemVersion: PropTypes.string.isRequired,
-      colorOptions: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+  data: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   liked: PropTypes.bool.isRequired,
   toggleLike: PropTypes.func.isRequired,
