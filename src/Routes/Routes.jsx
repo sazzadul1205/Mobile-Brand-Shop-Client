@@ -5,6 +5,7 @@ import ProductsPage from "../Pages/ProductsPage/ProductsPage";
 import BlogsPage from "../Pages/BlogsPage/BlogsPage";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import ProductsMobile from "../Pages/ProductsMobile/ProductsMobile";
+import ProductLaptop from "../Pages/ProductLaptop/ProductLaptop";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/Products-Laptop",
-        element: <ProductsMobile></ProductsMobile>
+        element: <ProductLaptop></ProductLaptop>
       },
       {
         path: "/Blogs",
