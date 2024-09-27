@@ -189,6 +189,39 @@ const LaptopCard = ({ data, index, liked, toggleLike }) => {
                 </p>
               </div>
 
+              {/* Inputs / Outputs */}
+              <div>
+                <h4 className="font-bold text-lg py-1">Inputs / Outputs:</h4>
+                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                  <span className="font-semibold">Charging Port :</span>
+                  {data.InputsOutputs?.ChargingPort}
+                </p>
+                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                  <span className="font-semibold">USB Ports :</span>
+                  {data.InputsOutputs?.USBPorts}
+                </p>
+                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                  <span className="font-semibold">HDMI Port :</span>
+                  {data.InputsOutputs?.HDMIPort}
+                </p>
+                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                  <span className="font-semibold">Headphone Jack :</span>
+                  {data.InputsOutputs?.HeadphoneJack}
+                </p>
+                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                  <span className="font-semibold">SD Card Slot :</span>
+                  {data.InputsOutputs?.SDCardSlot}
+                </p>
+                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                  <span className="font-semibold">Ethernet Port :</span>
+                  {data.InputsOutputs?.EthernetPort}
+                </p>
+                <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                  <span className="font-semibold">Thunderbolt Ports :</span>
+                  {data.InputsOutputs?.ThunderboltPorts}
+                </p>
+              </div>
+
               {/* Keyboard */}
               <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
                 <span className="font-semibold">Keyboard :</span>
@@ -274,6 +307,15 @@ LaptopCard.propTypes = {
       BatteryLife: PropTypes.string,
       BatteryCapacity: PropTypes.string,
       ChargingSpeed: PropTypes.string,
+    }),
+    InputsOutputs: PropTypes.shape({
+      ChargingPort: PropTypes.string,
+      USBPorts: PropTypes.string,
+      HDMIPort: PropTypes.string,
+      HeadphoneJack: PropTypes.string,
+      SDCardSlot: PropTypes.string,
+      EthernetPort: PropTypes.string,
+      ThunderboltPorts: PropTypes.string,
     }),
     OtherFeatures: PropTypes.shape({
       OperatingSystem: PropTypes.string,
