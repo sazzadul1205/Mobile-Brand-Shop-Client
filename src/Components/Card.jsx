@@ -1,8 +1,19 @@
 import PropTypes from "prop-types";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const Card = ({ data, index, liked, toggleLike }) => {
+  const handleAddToCart = () => {
+    Swal.fire({
+      title: "Added to Cart!",
+      text: "The item has been added to your cart successfully.",
+      icon: "success",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+  };
+
   return (
     <div className="group card bg-white w-full z-10 shadow-xl rounded-none border border-black p-5 relative overflow-hidden transition-transform duration-300 transform hover:scale-105">
       <figure className="relative">
@@ -31,7 +42,10 @@ const Card = ({ data, index, liked, toggleLike }) => {
         </div>
 
         {/* Add to Cart Button */}
-        <button className="bg-orange-500 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-full mt-5 ">
+        <button
+          className="bg-orange-500 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-full mt-5"
+          onClick={handleAddToCart}
+        >
           Add To Cart
         </button>
       </div>

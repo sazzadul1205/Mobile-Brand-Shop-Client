@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { FaChevronRight } from "react-icons/fa6";
 import Titles from "../../../Components/Titles";
+import { FaChevronRight } from "react-icons/fa6";
 import Card from "../../../Components/Card";
+import { Link } from "react-router-dom";
 
 const DesktopData = [
   {
@@ -286,7 +287,7 @@ const DesktopData = [
   },
 ];
 
-const DesktopSlider = () => {
+const DesktopComponent = () => {
   // Create state to track liked items
   const [liked, setLiked] = useState(Array(DesktopData.length).fill(false));
 
@@ -298,31 +299,35 @@ const DesktopSlider = () => {
   };
 
   return (
-    <div className="max-w-[1200px] mx-auto gap-10">
-      {/* Top */}
-      <div className="flex justify-between items-center">
-        <Titles
-          title={"Our Desktops"}
-          subtitle={"New products with updated stocks"}
-        />
-        <button className="py-2 px-5 font-bold rounded-full border-2 border-gray-500 text-gray-500 hover:text-white hover:bg-gray-500 flex items-center gap-4">
-          View All <FaChevronRight />
-        </button>
-      </div>
-      {/* Grid */}
-      <div className="grid grid-cols-4 ">
-        {DesktopData.map((mobile, index) => (
-          <Card
-            data={mobile}
-            key={index}
-            index={index}
-            liked={liked[index]} // Pass the liked state for the current card
-            toggleLike={toggleLike} // Pass the toggleLike function
+    <div className=" bg-gradient-to-b from-green-100 to-green-300">
+      <div className="max-w-[1200px] mx-auto gap-10">
+        {/* Top */}
+        <div className="flex justify-between items-center">
+          <Titles
+            title={"Our Desktops"}
+            subtitle={"New products with updated stocks"}
           />
-        ))}
+          <Link to={"/Products-Desktop"}>
+            <button className="py-2 px-5 font-bold rounded-full border-2 border-gray-500 text-gray-500 hover:text-white hover:bg-gray-500 flex items-center gap-4">
+              View All <FaChevronRight />
+            </button>
+          </Link>
+        </div>
+        {/* Grid */}
+        <div className="grid grid-cols-4 ">
+          {DesktopData.map((mobile, index) => (
+            <Card
+              data={mobile}
+              key={index}
+              index={index}
+              liked={liked[index]} // Pass the liked state for the current card
+              toggleLike={toggleLike} // Pass the toggleLike function
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default DesktopSlider;
+export default DesktopComponent;

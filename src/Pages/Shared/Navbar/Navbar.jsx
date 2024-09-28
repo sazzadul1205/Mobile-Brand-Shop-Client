@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaMobileScreen } from "react-icons/fa6";
 import { IoMenu } from "react-icons/io5";
@@ -100,10 +100,12 @@ const Navbar = () => {
               </ul>
             )}
           </div>
-          <a className="text-2xl font-bold flex items-center">
-            <FaMobileScreen className="mr-2 text-black" />
-            Mobile Brand Shop
-          </a>
+          <Link to={'/'}>
+            <a className="text-2xl font-bold flex items-center">
+              <FaMobileScreen className="mr-2 text-black" />
+              Mobile Brand Shop
+            </a>
+          </Link>
         </div>
 
         {/* Navbar Center */}

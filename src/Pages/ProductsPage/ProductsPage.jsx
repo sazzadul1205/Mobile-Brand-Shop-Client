@@ -1,25 +1,25 @@
-import DesktopSlider from "./DesktopSlider/DesktopSlider";
-import LaptopSlider from "./LaptopSlider/LaptopSlider";
-import MobileSlider from "./MobileSlider/MobileSlider";
+import DesktopComponent from "./DesktopComponent/DesktopComponent";
+import LaptopComponent from "./LaptopComponent/LaptopComponent";
+import MobileComponent from "./MobileComponent/MobileComponent";
 import ProductPageBanner from "./ProductPageBanner/ProductPageBanner";
-import TabletSlider from "./TabletSlider/TabletSlider";
+import TabletComponent from "./TabletComponent/TabletComponent";
 import TopSection from "./TopSection/TopSection";
 
 const ProductsPage = () => {
   return (
-    <div className="bg-gradient-to-b from-green-500 to-white py-24 text-black">
+    <div className="bg-gradient-to-b from-green-100 to-green-300 py-10 pt-28 text-black">
       {/* Search and Categories */}
       <TopSection></TopSection>
       {/* Banner */}
       <ProductPageBanner></ProductPageBanner>
       {/* Mobile */}
-      <MobileSlider></MobileSlider>
+      <MobileComponent></MobileComponent>
       {/* Laptop */}
-      <LaptopSlider></LaptopSlider>
+      <LaptopComponent></LaptopComponent>
       {/* Tablet */}
-      <TabletSlider></TabletSlider>
+      <TabletComponent></TabletComponent>
       {/* Desktop */}
-      <DesktopSlider></DesktopSlider>
+      <DesktopComponent></DesktopComponent>
     </div>
   );
 };

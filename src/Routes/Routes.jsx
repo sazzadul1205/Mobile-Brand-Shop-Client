@@ -8,11 +8,13 @@ import ProductsMobile from "../Pages/ProductsMobile/ProductsMobile";
 import ProductLaptop from "../Pages/ProductLaptop/ProductLaptop";
 import ProductsTablets from "../Pages/ProductsTablets/ProductsTablets";
 import ProductsDesktops from "../Pages/ProductsDesktops/ProductsDesktops";
+import Error from "../Error/Error";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/",

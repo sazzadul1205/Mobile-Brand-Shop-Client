@@ -1,16 +1,48 @@
 import { IoMdMenu } from "react-icons/io";
 import { FaAngleDown, FaCartArrowDown } from "react-icons/fa";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import { NavLink } from "react-router-dom";
 
 const TopSection = () => {
   return (
     <div className="max-w-[1200px] mx-auto pt-5 pb-10 flex items-center gap-10">
       {/* Categories */}
-      <button className="bg-[#F16521] hover:bg-[#dbb39f] text-white hover:text-black flex items-center gap-5 text-xl py-2 px-5 rounded-full">
-        <IoMdMenu />
-        <p className="text-lg font-medium">ALL CATEGORIES</p>
-        <FaAngleDown />
-      </button>
+      <div className="dropdown">
+        <button
+          className="bg-[#F16521] hover:bg-[#dbb39f] text-white hover:text-black flex items-center gap-5 text-xl py-2 px-5 rounded-full"
+          tabIndex={0}
+          role="button"
+        >
+          <IoMdMenu />
+          <p className="text-lg font-medium">ALL CATEGORIES</p>
+          <FaAngleDown />
+        </button>
+        <ul
+          tabIndex={0}
+          className="dropdown-content  bg-white rounded-b-box z-[1] w-full p-2 shadow"
+        >
+          <NavLink to={"/Products-Mobile"}>
+            <li className="py-2 px-2 hover:bg-orange-500 hover:text-white">
+              <a>Mobile</a>
+            </li>
+          </NavLink>
+          <NavLink to={"/Products-Laptop"}>
+            <li className="py-2 px-2 hover:bg-orange-500 hover:text-white">
+              <a>Laptop</a>
+            </li>
+          </NavLink>
+          <NavLink to={"/Products-Tablets"}>
+            <li className="py-2 px-2 hover:bg-orange-500 hover:text-white">
+              <a>Tablet</a>
+            </li>
+          </NavLink>
+          <NavLink to={"/Products-Desktop"}>
+            <li className="py-2 px-2 hover:bg-orange-500 hover:text-white">
+              <a>Desktop</a>
+            </li>
+          </NavLink>
+        </ul>
+      </div>
 
       {/* Search box */}
       <label className="input input-bordered bg-white flex items-center gap-2 w-1/2">
