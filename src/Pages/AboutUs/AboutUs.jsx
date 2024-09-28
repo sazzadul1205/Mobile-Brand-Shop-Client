@@ -1,6 +1,12 @@
+import { Helmet } from "react-helmet";
+
 const AboutUs = () => {
   return (
     <div className="bg-gradient-to-b from-green-300 to-white py-20">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Mobile Brand Shop || AboutUs</title>
+      </Helmet>
       {/* Header Section */}
       <div className="text-center pt-10 mb-12">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">About Us</h1>
@@ -50,9 +56,7 @@ const AboutUs = () => {
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="bg-gradient-to-br from-blue-400 to-white p-6 rounded-lg shadow-md hover:shadow-2xl text-center ">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">
-              Integrity
-            </h3>
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">Integrity</h3>
             <p className="text-gray-600 leading-relaxed font-semibold">
               We conduct business with the highest level of ethics and
               transparency. Trust and honesty are at the core of everything we
@@ -134,8 +138,8 @@ const AboutUs = () => {
             Want to Learn More?
           </h2>
           <p className="text-lg text-gray-100 mb-6">
-            Reach out to us with any questions or inquiries, and {"let's"} start a
-            conversation!
+            Reach out to us with any questions or inquiries, and {"let's"} start
+            a conversation!
           </p>
           <button className="bg-white text-green-600 font-bold py-2 px-4 rounded-lg shadow-md hover:bg-gray-100">
             Contact Us

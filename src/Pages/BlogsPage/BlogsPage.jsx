@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 // Extended Blog data with more detailed content
 const blogData = [
@@ -104,108 +105,112 @@ const blogData = [
 ];
 
 const BlogsPage = () => {
-    // State to track the currently selected blog (default to the first blog)
-    const [selectedBlog, setSelectedBlog] = useState(blogData[0]);
-  
-    // State to manage which set of blogs are visible in the vertical slider
-    const [startIndex, setStartIndex] = useState(0);
-  
-    // The number of blogs to show at once
-    const blogsToShow = 3;
-  
-    // Function to handle blog selection
-    const handleBlogClick = (blog) => {
-      setSelectedBlog(blog);
-    };
-  
-    // Function to handle moving up the slider
-    const handleSlideUp = () => {
-      if (startIndex > 0) {
-        setStartIndex(startIndex - 1);
-      }
-    };
-  
-    // Function to handle moving down the slider
-    const handleSlideDown = () => {
-      if (startIndex + blogsToShow < blogData.length) {
-        setStartIndex(startIndex + 1);
-      }
-    };
-  
-    return (
-      <div className="bg-gradient-to-b from-green-500 to-white py-24 text-black">
-        {/* Page Header */}
-        <div className="text-center my-5">
-          <p className="font-bold text-3xl">Our Blogs</p>
-          <p className="text-xl">
-            Read Our Blogs and know more about Electronics
-          </p>
+  // State to track the currently selected blog (default to the first blog)
+  const [selectedBlog, setSelectedBlog] = useState(blogData[0]);
+
+  // State to manage which set of blogs are visible in the vertical slider
+  const [startIndex, setStartIndex] = useState(0);
+
+  // The number of blogs to show at once
+  const blogsToShow = 3;
+
+  // Function to handle blog selection
+  const handleBlogClick = (blog) => {
+    setSelectedBlog(blog);
+  };
+
+  // Function to handle moving up the slider
+  const handleSlideUp = () => {
+    if (startIndex > 0) {
+      setStartIndex(startIndex - 1);
+    }
+  };
+
+  // Function to handle moving down the slider
+  const handleSlideDown = () => {
+    if (startIndex + blogsToShow < blogData.length) {
+      setStartIndex(startIndex + 1);
+    }
+  };
+
+  return (
+    <div className="bg-gradient-to-b from-green-500 to-white py-24 text-black">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Mobile Brand Shop || Blogs Page</title>
+      </Helmet>
+      {/* Page Header */}
+      <div className="text-center my-5">
+        <p className="font-bold text-3xl">Our Blogs</p>
+        <p className="text-xl">
+          Read Our Blogs and know more about Electronics
+        </p>
+      </div>
+
+      {/* Blog Content */}
+      <div className="flex flex-col lg:flex-row max-w-[1200px] mx-auto gap-6">
+        {/* Big Feature Blog */}
+        <div className="lg:w-2/3  bg-white shadow-lg rounded-lg p-6">
+          <img
+            className="w-full h-64 object-cover rounded-t-lg"
+            src={selectedBlog.imageUrl}
+            alt={selectedBlog.title}
+          />
+          <div className="p-4">
+            <h2 className="text-2xl font-bold mb-3">{selectedBlog.title}</h2>
+            <p className="mb-2 text-gray-500">
+              By {selectedBlog.author} | {selectedBlog.publishedDate}
+            </p>
+            <p className="mb-5 text-gray-600">{selectedBlog.content}</p>
+            <p className="italic text-gray-400">
+              Category: {selectedBlog.category}
+            </p>
+            <button className="text-green-500 font-bold">Read More</button>
+          </div>
         </div>
-  
-        {/* Blog Content */}
-        <div className="flex flex-col lg:flex-row max-w-[1200px] mx-auto gap-6">
-          {/* Big Feature Blog */}
-          <div className="lg:w-2/3  bg-white shadow-lg rounded-lg p-6">
-            <img
-              className="w-full h-64 object-cover rounded-t-lg"
-              src={selectedBlog.imageUrl}
-              alt={selectedBlog.title}
-            />
-            <div className="p-4">
-              <h2 className="text-2xl font-bold mb-3">{selectedBlog.title}</h2>
-              <p className="mb-2 text-gray-500">
-                By {selectedBlog.author} | {selectedBlog.publishedDate}
+
+        {/* Smaller Blog Articles with Slider */}
+        <div className="lg:w-1/3 space-y-4">
+          {/* Slider Up Button */}
+          <button
+            onClick={handleSlideUp}
+            className="w-full bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400"
+            disabled={startIndex === 0} // Disable button at the top
+          >
+            ▲
+          </button>
+
+          {/* Displaying the visible blogs */}
+          {blogData.slice(startIndex, startIndex + blogsToShow).map((blog) => (
+            <div
+              key={blog.id}
+              onClick={() => handleBlogClick(blog)}
+              className="cursor-pointer bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition-shadow"
+            >
+              <h3 className="text-xl font-bold">{blog.title}</h3>
+              <p className="text-sm text-gray-500">
+                By {blog.author} | {blog.publishedDate}
               </p>
-              <p className="mb-5 text-gray-600">{selectedBlog.content}</p>
-              <p className="italic text-gray-400">
-                Category: {selectedBlog.category}
-              </p>
-              <button className="text-green-500 font-bold">Read More</button>
+              <img
+                className="w-full h-40 object-cover mt-2 rounded-lg"
+                src={blog.imageUrl}
+                alt={blog.title}
+              />
             </div>
-          </div>
-  
-          {/* Smaller Blog Articles with Slider */}
-          <div className="lg:w-1/3 space-y-4">
-            {/* Slider Up Button */}
-            <button
-              onClick={handleSlideUp}
-              className="w-full bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400"
-              disabled={startIndex === 0} // Disable button at the top
-            >
-              ▲
-            </button>
-  
-            {/* Displaying the visible blogs */}
-            {blogData.slice(startIndex, startIndex + blogsToShow).map((blog) => (
-              <div
-                key={blog.id}
-                onClick={() => handleBlogClick(blog)}
-                className="cursor-pointer bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition-shadow"
-              >
-                <h3 className="text-xl font-bold">{blog.title}</h3>
-                <p className="text-sm text-gray-500">
-                  By {blog.author} | {blog.publishedDate}
-                </p>
-                <img
-                  className="w-full h-40 object-cover mt-2 rounded-lg"
-                  src={blog.imageUrl}
-                  alt={blog.title}
-                />
-              </div>
-            ))}
-  
-            {/* Slider Down Button */}
-            <button
-              onClick={handleSlideDown}
-              className="w-full bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400"
-              disabled={startIndex + blogsToShow >= blogData.length} // Disable button at the bottom
-            >
-              ▼
-            </button>
-          </div>
+          ))}
+
+          {/* Slider Down Button */}
+          <button
+            onClick={handleSlideDown}
+            className="w-full bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400"
+            disabled={startIndex + blogsToShow >= blogData.length} // Disable button at the bottom
+          >
+            ▼
+          </button>
         </div>
       </div>
-    );
-  };
-  
-  export default BlogsPage;
+    </div>
+  );
+};
+
+export default BlogsPage;

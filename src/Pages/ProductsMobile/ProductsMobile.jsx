@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TopSection from "../ProductsPage/TopSection/TopSection";
 import AdvancedCard from "../../Components/AdvancedCard";
+import { Helmet } from "react-helmet";
 
 // Define mobile data
 const mobileData = [
@@ -1411,6 +1412,10 @@ const ProductsMobile = () => {
 
   return (
     <div className="bg-gradient-to-b from-green-500 to-white py-24 text-black">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Mobile Brand Shop || Products Mobile</title>
+      </Helmet>
       {/* Search and Categories */}
       <TopSection />
       <div className="text-center mb-8">

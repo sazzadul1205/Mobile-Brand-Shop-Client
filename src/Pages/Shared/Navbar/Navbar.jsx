@@ -1,11 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FaMobileScreen } from "react-icons/fa6";
 import { IoMenu } from "react-icons/io5";
+import { AuthContext } from "../../../Provider/AuthProvider";
+import userImage from "../../../assets/User.jfif";
 
 const Navbar = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { user, logOut } = useContext(AuthContext);
 
   // Handle scroll position change
   useEffect(() => {
@@ -19,6 +22,18 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleSignOut = () => {
+    logOut()
+      .then(() => {
+        console.log("User signed out successfully.");
+      })
+      .catch((error) => {
+        console.error("Error signing out:", error);
+      });
+  };
+
+  console.log(user);
 
   const navItems = [
     { label: "HOME", link: "/", subMenu: [] },
@@ -76,6 +91,7 @@ const Navbar = () => {
         </div>
       </li>
     ));
+console.log(user);
 
   return (
     <div
@@ -100,7 +116,7 @@ const Navbar = () => {
               </ul>
             )}
           </div>
-          <Link to={'/'}>
+          <Link to={"/"}>
             <a className="text-2xl font-bold flex items-center">
               <FaMobileScreen className="mr-2 text-black" />
               Mobile Brand Shop
@@ -116,10 +132,44 @@ const Navbar = () => {
         </div>
 
         {/* Navbar End */}
-        <div className="navbar-end">
-          <button className="px-11 py-2 text-xl font-semibold bg-green-300 hover:bg-green-100 rounded-full">
-            Login
-          </button>
+        <div className="navbar-end flex gap-5">
+          {user ? (
+            <div className="dropdown">
+              <div
+                className="flex items-center px-2"
+                tabIndex={0}
+                role="button"
+              >
+                <img
+                  src={user.photoURL || userImage}
+                  alt="User"
+                  className="w-12 h-12 "
+                />
+                <h2 className="font-semibold ml-2 text-lg">
+                  {user.displayName}
+                </h2>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu bg-white rounded-box z-[1] w-52 p-2 mt-36 shadow"
+                >
+                  <li onClick={handleSignOut}>
+                    <p className="w-full text-center bg-green-400 hover:bg-green-300 font-bold">
+                      LogOut
+                    </p>
+                  </li>
+                  <li>
+                    <p>Dashboard</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          ) : (
+            <Link to={"/Login"}>
+              <button className="px-11 py-2 text-xl font-semibold bg-green-300 hover:bg-green-100 rounded-full">
+                Login
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

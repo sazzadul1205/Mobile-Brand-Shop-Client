@@ -9,7 +9,8 @@ import ProductLaptop from "../Pages/ProductLaptop/ProductLaptop";
 import ProductsTablets from "../Pages/ProductsTablets/ProductsTablets";
 import ProductsDesktops from "../Pages/ProductsDesktops/ProductsDesktops";
 import Error from "../Error/Error";
-
+import Login from "../Auth/Login/Login"
+import SignUp from "../Auth/SignUp/SignUp"
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -47,6 +48,14 @@ export const router = createBrowserRouter([
       {
         path: "/AboutUs",
         element: <AboutUs></AboutUs>,
+      },
+      {
+        path: "/Login",
+        element: <Login></Login>
+      },
+      {
+        path: "/SignUp",
+        element: <SignUp></SignUp>
       },
     ],
   },
