@@ -9,8 +9,11 @@ import ProductLaptop from "../Pages/ProductLaptop/ProductLaptop";
 import ProductsTablets from "../Pages/ProductsTablets/ProductsTablets";
 import ProductsDesktops from "../Pages/ProductsDesktops/ProductsDesktops";
 import Error from "../Error/Error";
-import Login from "../Auth/Login/Login"
-import SignUp from "../Auth/SignUp/SignUp"
+import Login from "../Auth/Login/Login";
+import SignUp from "../Auth/SignUp/SignUp";
+import DashboardLayout from "../Layouts/DashboardLayout";
+import Cart from "../Dashboard/User/Cart/Cart";
+import History from "../Dashboard/User/History/History";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -27,19 +30,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/Products-Mobile",
-        element: <ProductsMobile></ProductsMobile>
+        element: <ProductsMobile></ProductsMobile>,
       },
       {
         path: "/Products-Laptop",
-        element: <ProductLaptop></ProductLaptop>
+        element: <ProductLaptop></ProductLaptop>,
       },
       {
         path: "/Products-Tablets",
-        element: <ProductsTablets></ProductsTablets>
+        element: <ProductsTablets></ProductsTablets>,
       },
       {
         path: "/Products-Desktop",
-        element: <ProductsDesktops></ProductsDesktops>
+        element: <ProductsDesktops></ProductsDesktops>,
       },
       {
         path: "/Blogs",
@@ -51,11 +54,25 @@ export const router = createBrowserRouter([
       },
       {
         path: "/Login",
-        element: <Login></Login>
+        element: <Login></Login>,
       },
       {
         path: "/SignUp",
-        element: <SignUp></SignUp>
+        element: <SignUp></SignUp>,
+      },
+    ],
+  },
+  {
+    path: "/Dashboard",
+    element: <DashboardLayout></DashboardLayout>,
+    children: [
+      {
+        path: "Cart",
+        element: <Cart></Cart>,
+      },
+      {
+        path: "History",
+        element: <History></History>,
       },
     ],
   },

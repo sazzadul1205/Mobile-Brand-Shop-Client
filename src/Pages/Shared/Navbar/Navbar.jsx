@@ -91,7 +91,7 @@ const Navbar = () => {
         </div>
       </li>
     ));
-console.log(user);
+  console.log(user);
 
   return (
     <div
@@ -158,7 +158,9 @@ console.log(user);
                     </p>
                   </li>
                   <li>
-                    <p>Dashboard</p>
+                    <Link to={'/Dashboard'}>
+                      <p>Dashboard</p>
+                    </Link>
                   </li>
                 </ul>
               </div>
