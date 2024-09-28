@@ -14,6 +14,7 @@ import SignUp from "../Auth/SignUp/SignUp";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Cart from "../Dashboard/User/Cart/Cart";
 import History from "../Dashboard/User/History/History";
+import AddContent from "../Dashboard/Admin/AddContent/AddContent";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -73,6 +74,10 @@ export const router = createBrowserRouter([
       {
         path: "History",
         element: <History></History>,
+      },
+      {
+        path: "AddContent",
+        element: <AddContent></AddContent>
       },
     ],
   },
