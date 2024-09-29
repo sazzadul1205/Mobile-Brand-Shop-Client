@@ -1,66 +1,13 @@
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
+import PropTypes from "prop-types"; // Import PropTypes
 import "swiper/css";
 import "swiper/css/pagination";
-
-// import required modules
 import { Pagination } from "swiper/modules";
 
-const Brands = () => {
-  // JSON data array for brand logos
-  const brandData = [
-    {
-      id: 1,
-      name: "Apple",
-      imgUrl: "https://i.ibb.co.com/hdZFVDx/Apple.png",
-    },
-    {
-      id: 2,
-      name: "Asus",
-      imgUrl: "https://i.ibb.co.com/Ssgs48w/Asus.png",
-    },
-    {
-      id: 3,
-      name: "Google",
-      imgUrl: "https://i.ibb.co.com/4FhNXw9/Google.png",
-    },
-    {
-      id: 4,
-      name: "Nokia",
-      imgUrl: "https://i.ibb.co.com/rtRkswf/Nokia.png",
-    },
-    {
-      id: 5,
-      name: "OnePlus",
-      imgUrl: "https://i.ibb.co.com/H4swvBb/OnePlus.png",
-    },
-    {
-      id: 6,
-      name: "Oppo",
-      imgUrl: "https://i.ibb.co.com/8KG5yjQ/Oppo.png",
-    },
-    {
-      id: 7,
-      name: "Samsung",
-      imgUrl: "https://i.ibb.co.com/hVTCNNW/Samsung.png",
-    },
-    {
-      id: 8,
-      name: "Vivo",
-      imgUrl: "https://i.ibb.co.com/j4Vty0F/Vivo.png",
-    },
-    {
-      id: 9,
-      name: "Xiaomi",
-      imgUrl: "https://i.ibb.co.com/ZfRw7qF/Xiaomi.png",
-    },
-  ];
-
+const Brands = ({ HomeBrandData }) => {
   return (
     <div className="bg-gradient-to-b from-green-300 to-white py-24 text-center text-black">
-      <div className="max-w-[1200px] mx-auto">
+      <div className="max-w-[1200px] mx-auto py-20">
         <h1 className="font-semibold pb-5">The Brands we work with</h1>
 
         <Swiper
@@ -72,7 +19,7 @@ const Brands = () => {
           modules={[Pagination]}
           className="mySwiper"
         >
-          {brandData.map((brand) => (
+          {HomeBrandData.map((brand) => (
             <SwiperSlide key={brand.id}>
               <img
                 src={brand.imgUrl}
@@ -85,6 +32,17 @@ const Brands = () => {
       </div>
     </div>
   );
+};
+
+// Define prop types for the component
+Brands.propTypes = {
+  HomeBrandData: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      imgUrl: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default Brands;
