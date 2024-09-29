@@ -10,6 +10,8 @@ const DashboardLayout = () => {
     { to: "Cart", label: "Cart" },
     { to: "History", label: "History" },
     { to: "AddContent", label: "Add Content" },
+    { to: "ManageDelivery", label: "Manage Delivery" },
+    { to: "ManageProducts", label: "Manage Products" },
   ];
 
   const adminNav = AdminNavLink.map((link) => {

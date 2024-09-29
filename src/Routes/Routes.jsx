@@ -15,6 +15,8 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import Cart from "../Dashboard/User/Cart/Cart";
 import History from "../Dashboard/User/History/History";
 import AddContent from "../Dashboard/Admin/AddContent/AddContent";
+import ManageDelivery from "../Dashboard/Admin/ManageDelivery/ManageDelivery";
+import ManageProducts from "../Dashboard/Admin/ManageProducts/ManageProducts";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -77,7 +79,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "AddContent",
-        element: <AddContent></AddContent>
+        element: <AddContent></AddContent>,
+      },
+      {
+        path: "ManageDelivery",
+        element: <ManageDelivery></ManageDelivery>,
+      },
+      {
+        path: "ManageProducts",
+        element: <ManageProducts></ManageProducts>,
       },
     ],
   },

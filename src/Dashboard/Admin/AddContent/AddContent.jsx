@@ -1,6 +1,9 @@
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import AddMobile from "./AddMobile/AddMobile";
+import AddLaptop from "./AddLaptop/AddLaptop";
+import AddTablet from "./AddTablet/AddTablet";
+import AddDesktop from "./AddDesktop/AddDesktop";
 
 const AddContent = () => {
   return (
@@ -33,13 +36,13 @@ const AddContent = () => {
             <AddMobile></AddMobile>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 2</h2>
+            <AddLaptop></AddLaptop>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 2</h2>
+            <AddTablet></AddTablet>
           </TabPanel>
           <TabPanel>
-            <h2>Any content 2</h2>
+            <AddDesktop></AddDesktop>
           </TabPanel>
         </Tabs>
       </div>

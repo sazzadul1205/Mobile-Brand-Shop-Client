@@ -11,7 +11,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 119920.76,
-    ReleaseDate: "2022",
+    releaseDate: "2022",
     weightAndDimensions: {
       height: "0.41 inches",
       width: "11.97 inches",
@@ -62,7 +62,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 191945.24,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.71 inches",
       width: "13.57 inches",
@@ -113,7 +113,7 @@ const LaptopData = [
     Condition: "Refurbished",
     inStock: true,
     price: 143928.92,
-    ReleaseDate: "2022",
+    releaseDate: "2022",
     weightAndDimensions: {
       height: "0.67 inches",
       width: "13.99 inches",
@@ -164,7 +164,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 209951.36,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.59 inches",
       width: "12.7 inches",
@@ -215,7 +215,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 179941.16,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.70 inches",
       width: "12.76 inches",
@@ -266,7 +266,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 155933.0,
-    ReleaseDate: "2022",
+    releaseDate: "2022",
     weightAndDimensions: {
       height: "0.57 inches",
       width: "13.5 inches",
@@ -317,7 +317,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 167937.08,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.63 inches",
       width: "12.76 inches",
@@ -419,7 +419,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 139900.0,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.58 inches",
       width: "11.6 inches",
@@ -470,7 +470,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 159999.99,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.67 inches",
       width: "13.5 inches",
@@ -521,7 +521,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 189999.99,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.59 inches",
       width: "13.0 inches",
@@ -572,7 +572,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 109999.0,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.67 inches",
       width: "12.5 inches",
@@ -623,7 +623,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 89999.99,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.63 inches",
       width: "12.7 inches",
@@ -674,7 +674,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 129999.99,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.57 inches",
       width: "12.1 inches",
@@ -725,7 +725,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 229999.99,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.67 inches",
       width: "15.6 inches",
@@ -776,7 +776,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 119999.0,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.63 inches",
       width: "12.6 inches",
@@ -827,7 +827,7 @@ const LaptopData = [
     Condition: "New",
     inStock: true,
     price: 99999.99,
-    ReleaseDate: "2023",
+    releaseDate: "2023",
     weightAndDimensions: {
       height: "0.45 inches",
       width: "11.2 inches",

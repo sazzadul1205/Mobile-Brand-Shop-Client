@@ -1,7 +1,6 @@
-import { useState } from "react";
-import TopSection from "../ProductsPage/TopSection/TopSection";
-import AdvancedCard from "../../Components/AdvancedCard";
-import { Helmet } from "react-helmet";
+import { useEffect, useState } from "react";
+import { FaSearch } from "react-icons/fa";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
 
 // Define mobile data
 const mobileData = [
@@ -1359,237 +1358,635 @@ const mobileData = [
   },
 ];
 
-const ProductsMobile = () => {
-  const itemsPerPage = 9; // Display 9 products per page
+const ManageProducts = () => {
+  const [filteredData, setFilteredData] = useState(mobileData);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedProductType, setSelectedProductType] = useState("");
+  const [brands, setBrands] = useState([]);
+  const [productTypes, setProductTypes] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // Extract unique filter options from mobileData
-  const uniqueBrands = [...new Set(mobileData.map((item) => item.brand))];
-  const uniqueConditions = [
-    ...new Set(mobileData.map((item) => item.condition)),
-  ];
-  const uniqueOperatingSystems = [
-    ...new Set(mobileData.map((item) => item.operatingSystem)),
-  ];
-
-  // States for filters and pagination
-  const [filters, setFilters] = useState({
-    brand: "",
-    condition: "",
-    priceRange: [0, 100000],
-    operatingSystem: "",
-  });
-  const [currentPage, setCurrentPage] = useState(1);
-
-  // Filtered products based on filters
-  const filteredProducts = mobileData.filter((product) => {
-    const productPrice = parseFloat(product.price);
-    return (
-      (filters.brand ? product.brand === filters.brand : true) &&
-      (filters.condition ? product.condition === filters.condition : true) &&
-      (filters.operatingSystem
-        ? product.operatingSystem === filters.operatingSystem
-        : true) &&
-      productPrice >= filters.priceRange[0] &&
-      productPrice <= filters.priceRange[1]
+  // Fetching unique brands and product types from mobileData
+  useEffect(() => {
+    const uniqueBrands = Array.from(
+      new Set(mobileData.map((item) => item.brand))
     );
-  });
+    setBrands(uniqueBrands);
 
-  // Calculate total pages
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+    const uniqueProductTypes = Array.from(
+      new Set(mobileData.map((item) => item.productType))
+    );
+    setProductTypes(uniqueProductTypes);
+  }, []);
 
-  // Slice the products for the current page
-  const displayedProducts = filteredProducts.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
-  const handleFilterChange = (e) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value,
+  // Function to handle filtering
+  const filterData = () => {
+    const filtered = mobileData.filter((product) => {
+      const matchesBrand = selectedBrand
+        ? product.brand === selectedBrand
+        : true;
+      const matchesProductType = selectedProductType
+        ? product.productType === selectedProductType
+        : true;
+      return matchesBrand && matchesProductType;
     });
-    setCurrentPage(1); // Reset to page 1 when filters change
+    setFilteredData(filtered);
   };
 
-  const handlePriceRangeChange = (e, index) => {
-    const newPriceRange = [...filters.priceRange];
-    newPriceRange[index] = parseFloat(e.target.value) || 0;
-    setFilters({
-      ...filters,
-      priceRange: newPriceRange,
-    });
-    setCurrentPage(1); // Reset to page 1 when price range changes
+  // Effect to filter data whenever filters change
+  useEffect(() => {
+    filterData();
+  }, [selectedBrand, selectedProductType]);
+
+  const openModal = (product) => {
+    setSelectedProduct(product);
+    document.getElementById("my_modal_2").showModal();
   };
 
-  // Create state to track liked items
-  const [liked, setLiked] = useState(Array(mobileData.length).fill(false));
-
-  // Handle like click
-  const toggleLike = (index) => {
-    const updatedLikes = [...liked];
-    updatedLikes[index] = !updatedLikes[index]; // Toggle the like state
-    setLiked(updatedLikes);
+  const closeModal = () => {
+    document.getElementById("my_modal_2").close();
+    setSelectedProduct(null);
   };
 
-  // Handle page change
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
 
   return (
-    <div className="bg-gradient-to-b from-green-500 to-white py-24 text-black">
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Mobile Brand Shop || Products Mobile</title>
-      </Helmet>
-      {/* Search and Categories */}
-      <TopSection />
-      <div className="text-center mb-8">
-        <p className="font-bold text-3xl">View Our Mobiles</p>
+    <div className="bg-white ml-1">
+      {/* Title */}
+      <div className="px-5 py-5 text-black border-b border-black bg-gray-200">
+        <p className="text-2xl font-bold text-center">Manage Products</p>
       </div>
-      <div className="flex w-full max-w-[1200px] mx-auto">
-        {/* Filter Sidebar */}
-        <div className="w-1/4 bg-white p-4 rounded-md shadow-md">
-          <h3 className="text-lg font-bold mb-4">Filter by:</h3>
 
-          {/* Brand Filter */}
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Brand</label>
-            <select
-              name="brand"
-              value={filters.brand}
-              onChange={handleFilterChange}
-              className="w-full p-2 border rounded bg-white"
-            >
-              <option value="">All</option>
-              {uniqueBrands.map((brand, index) => (
-                <option key={index} value={brand}>
-                  {brand}
-                </option>
-              ))}
-            </select>
-          </div>
+      {/* Filters */}
+      <div className="flex px-10 items-center text-black gap-5">
+        {/* Search by Model */}
+        <label className="input border border-black flex items-center gap-2 w-1/2 my-4 bg-white">
+          <input
+            type="text"
+            className="grow bg-white"
+            placeholder="Search by model"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              filterData(); // Call filter function directly
+            }}
+          />
+          <FaSearch className="h-4 w-4 text-black" />
+        </label>
 
-          {/* Condition Filter */}
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Condition</label>
-            <select
-              name="condition"
-              value={filters.condition}
-              onChange={handleFilterChange}
-              className="w-full p-2 border rounded bg-white"
-            >
-              <option value="">All</option>
-              {uniqueConditions.map((condition, index) => (
-                <option key={index} value={condition}>
-                  {condition}
-                </option>
-              ))}
-            </select>
-          </div>
+        {/* Dropdown for Brand Filter */}
+        <select
+          className="border border-gray-300 p-2 w-1/4 bg-white"
+          value={selectedBrand}
+          onChange={(e) => setSelectedBrand(e.target.value)}
+        >
+          <option value="">All Brands</option>
+          {brands.map((brand, index) => (
+            <option key={index} value={brand}>
+              {brand}
+            </option>
+          ))}
+        </select>
 
-          {/* Price Range Filter */}
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Price Range</label>
-            <div className="flex space-x-2">
+        {/* Dropdown for Product Type Filter */}
+        <select
+          className="border border-gray-300 p-2 w-1/4 bg-white"
+          value={selectedProductType}
+          onChange={(e) => setSelectedProductType(e.target.value)}
+        >
+          <option value="">All Product Types</option>
+          {productTypes.map((type, index) => (
+            <option key={index} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Product List */}
+      <div className="overflow-x-auto px-5 py-5">
+        <table className="table text-black w-full">
+          <thead className="bg-gray-300 text-black font-bold">
+            <tr>
+              <th>Image</th>
+              <th>Model</th>
+              <th>Price</th>
+              <th>Brand</th>
+              <th>Condition</th>
+              <th>Product Type</th>
+              <th>View More</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredData.map((product, index) => (
+              <tr key={index}>
+                <td>
+                  <img
+                    src={product.image}
+                    alt={product.model}
+                    className="w-12 h-12"
+                  />
+                </td>
+                <td>{product.model}</td>
+                <td>
+                  <div className="flex items-center">
+                    {product.price}
+                    <FaBangladeshiTakaSign className="inline ml-2" />
+                  </div>
+                </td>
+                <td>{product.brand}</td>
+                <td>{product.condition}</td>
+                <td>{product.productType}</td>
+                <td>
+                  <button
+                    className="bg-orange-500 hover:bg-orange-400 font-bold text-white px-5 py-2"
+                    onClick={() => openModal(product)}
+                  >
+                    View More
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {/* Modal */}
+      {selectedProduct && (
+        <dialog id="my_modal_2" className="modal">
+          <div className="modal-box bg-white max-w-5xl max-h-[800px] text-black">
+            <div className="border-b border-black pb-3 flex justify-between items-center px-10">
+              <p className="text-xl font-bold">View More</p>
+              <p
+                className="font-bold text-3xl cursor-pointer"
+                onClick={closeModal}
+              >
+                x
+              </p>
+            </div>
+            <div className="flex justify-between px-10 py-5 gap-5 ">
+              {/* Left */}
               <div>
-                <label className="block mb-1">From</label>
-                <input
-                  type="number"
-                  value={filters.priceRange[0]}
-                  onChange={(e) => handlePriceRangeChange(e, 0)}
-                  className="w-full p-2 border rounded bg-white"
+                <img
+                  src={selectedProduct.image}
+                  alt={selectedProduct.model}
+                  className="w-[400px]"
                 />
+                <h3 className="font-bold text-xl p-2 border border-gray-300">
+                  {selectedProduct.brand} {selectedProduct.model}
+                </h3>
+                {selectedProduct.operatingSystem && (
+                  <h3 className="font-medium text-xl p-2 border border-gray-300">
+                    <span className="font-semibold">Operating System</span> :{" "}
+                    {selectedProduct.operatingSystem}
+                  </h3>
+                )}
+                {selectedProduct.condition && (
+                  <h3 className="font-medium text-xl p-2 border border-gray-300">
+                    <span className="font-semibold">Condition</span> :{" "}
+                    {selectedProduct.condition}
+                  </h3>
+                )}
+                {selectedProduct.releaseDate && (
+                  <h3 className="font-medium text-xl p-2 border border-gray-300">
+                    <span className="font-semibold">Release Date</span> :{" "}
+                    {selectedProduct.releaseDate}
+                  </h3>
+                )}
+                {selectedProduct.price && (
+                  <p className="font-medium text-xl pt-5 flex items-center">
+                    <span className="font-semibold">Price</span> :{" "}
+                    {selectedProduct.price}
+                    <FaBangladeshiTakaSign className="text-black text-lg ml-2" />
+                  </p>
+                )}
+                {selectedProduct.inStock && (
+                  <p className="text-green-500">In Stock</p>
+                )}
               </div>
-              <div>
-                <label className="block mb-1">To</label>
-                <input
-                  type="number"
-                  value={filters.priceRange[1]}
-                  onChange={(e) => handlePriceRangeChange(e, 1)}
-                  className="w-full p-2 border rounded bg-white"
-                />
+
+              {/* Right */}
+              <div className="space-y-3">
+                {/* Weight and Dimensions */}
+                {selectedProduct.weightAndDimensions && (
+                  <div>
+                    <h4 className="font-bold text-lg py-1">
+                      Weight & Dimensions:
+                    </h4>
+                    {selectedProduct.weightAndDimensions.height && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Height :</span>
+                        {selectedProduct.weightAndDimensions.height}
+                      </p>
+                    )}
+                    {selectedProduct.weightAndDimensions.width && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Width :</span>
+                        {selectedProduct.weightAndDimensions.width}
+                      </p>
+                    )}
+                    {selectedProduct.weightAndDimensions.depth && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Depth :</span>
+                        {selectedProduct.weightAndDimensions.depth}
+                      </p>
+                    )}
+                    {selectedProduct.weightAndDimensions.weight && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Weight :</span>
+                        {selectedProduct.weightAndDimensions.weight}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Display */}
+                {selectedProduct.display && (
+                  <div>
+                    <h4 className="font-bold text-lg py-1">Display :</h4>
+                    {selectedProduct.display.screenSize && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Screen Size :</span>
+                        {selectedProduct.display.screenSize}
+                      </p>
+                    )}
+                    {selectedProduct.display.resolution && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Resolution :</span>
+                        {selectedProduct.display.resolution}
+                      </p>
+                    )}
+                    {selectedProduct.display.displayType && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Display Type :</span>
+                        {selectedProduct.display.displayType}
+                      </p>
+                    )}
+                    {selectedProduct.display.displayTechnology && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">
+                          Display Technology :
+                        </span>
+                        {selectedProduct.display.displayTechnology}
+                      </p>
+                    )}
+                    {selectedProduct.display.touchScreen && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Touch Screen :</span>
+                        {selectedProduct.display.touchScreen}
+                      </p>
+                    )}
+                    {selectedProduct.display.refreshRate && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Refresh Rate :</span>
+                        {selectedProduct.display.refreshRate}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Performance */}
+                {selectedProduct.performance && (
+                  <div>
+                    <h4 className="font-bold text-lg py-1">Performance:</h4>
+                    {selectedProduct.performance.processor && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Processor :</span>
+                        {selectedProduct.performance.processor}
+                      </p>
+                    )}
+                    {selectedProduct.performance.ram && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">RAM :</span>
+                        {selectedProduct.performance.ram}
+                      </p>
+                    )}
+                    {selectedProduct.performance.storage && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Storage :</span>
+                        {selectedProduct.performance.storage}
+                      </p>
+                    )}
+                    {selectedProduct.performance.storageOptions && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Storage Options :</span>
+                        {selectedProduct.performance.storageOptions}
+                      </p>
+                    )}
+                    {selectedProduct.performance.graphicsCard && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Graphics Card :</span>
+                        {selectedProduct.performance.graphicsCard}
+                      </p>
+                    )}
+                    {selectedProduct.performance.coolingSystem && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Cooling System :</span>
+                        {selectedProduct.performance.coolingSystem}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* camera */}
+                {selectedProduct.camera && (
+                  <div>
+                    <h4 className="font-bold text-lg py-1">Camera:</h4>
+                    {selectedProduct.camera.rearCamera && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Rear Camera :</span>
+                        {selectedProduct.camera.rearCamera}
+                      </p>
+                    )}
+                    {selectedProduct.camera.mainCamera && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Main Camera :</span>
+                        {selectedProduct.camera.mainCamera}
+                      </p>
+                    )}
+                    {selectedProduct.camera.frontCamera && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Front Camera :</span>
+                        {selectedProduct.camera.frontCamera}
+                      </p>
+                    )}
+                    {selectedProduct.camera.videoRecording && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Video Recording :</span>
+                        {selectedProduct.camera.videoRecording}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Battery */}
+                {selectedProduct.battery && (
+                  <div>
+                    <h4 className="font-bold text-lg py-1">Battery:</h4>
+                    {selectedProduct.battery.batteryCapacity && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">
+                          Battery Capacity :
+                        </span>
+                        {selectedProduct.battery.batteryCapacity}
+                      </p>
+                    )}
+                    {selectedProduct.battery.chargingSpeed && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Charging Speed :</span>
+                        {selectedProduct.battery.chargingSpeed}
+                      </p>
+                    )}
+                    {selectedProduct.battery.batteryLife && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Battery Life :</span>
+                        {selectedProduct.battery.batteryLife}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Inputs / Outputs */}
+                {selectedProduct.inputsOutputs && (
+                  <div>
+                    <h4 className="font-bold text-lg py-1">
+                      Inputs / Outputs:
+                    </h4>
+                    {selectedProduct.inputsOutputs.usbPorts && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">USB Ports:</span>
+                        {selectedProduct.inputsOutputs.usbPorts}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.hdmiDisplayPort && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">
+                          HDMI Display Port :
+                        </span>
+                        {selectedProduct.inputsOutputs.hdmiDisplayPort}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.ethernetPort && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Ethernet Port :</span>
+                        {selectedProduct.inputsOutputs.ethernetPort}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.thunderboltPorts && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">
+                          Thunderbolt Ports:
+                        </span>
+                        {selectedProduct.inputsOutputs.thunderboltPorts}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.audioInputOutput && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">
+                          Audio Input / Output :
+                        </span>
+                        {selectedProduct.inputsOutputs.audioInputOutput}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.powerSupply && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Power Supply :</span>
+                        {selectedProduct.inputsOutputs.powerSupply}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.expansionSlots && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Expansion Slots :</span>
+                        {selectedProduct.inputsOutputs.expansionSlots}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.chargingPort && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Charging Port :</span>
+                        {selectedProduct.inputsOutputs.chargingPort}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.simCardType && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Sim Card Type :</span>
+                        {selectedProduct.inputsOutputs.simCardType}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.simCardSlot && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Sim Card Slot :</span>
+                        {selectedProduct.inputsOutputs.simCardSlot}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.headphoneJack && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Headphone Jack :</span>
+                        {selectedProduct.inputsOutputs.headphoneJack}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.speakers && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Speakers :</span>
+                        {selectedProduct.inputsOutputs.speakers}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.biometrics && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Biometrics :</span>
+                        {selectedProduct.inputsOutputs.biometrics}
+                      </p>
+                    )}
+                    {selectedProduct.inputsOutputs.sdCardSlot && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">SDCardSlot :</span>
+                        {selectedProduct.inputsOutputs.sdCardSlot}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Other Features */}
+                {selectedProduct.biometrics && (
+                  <div>
+                    <h4 className="font-bold text-lg py-1">Biometrics:</h4>
+                    {selectedProduct.biometrics && (
+                      <p className="border border-gray-400 py-2 px-5 ">
+                        {selectedProduct.biometrics}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Keyboard */}
+                {selectedProduct.keyboard && (
+                  <div>
+                    <h4 className="font-bold text-lg py-1">Keyboard :</h4>
+                    {selectedProduct.keyboard && (
+                      <p className="border border-gray-400 py-2 px-5 ">
+                        {selectedProduct.keyboard}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* TrackpadMouseInput */}
+                {selectedProduct.trackpadMouseInput && (
+                  <div>
+                    <h4 className="font-bold text-lg py-1">
+                      Track Pad Mouse Input :
+                    </h4>
+                    {selectedProduct.trackpadMouseInput && (
+                      <p className="border border-gray-400 py-2 px-5 ">
+                        {selectedProduct.trackpadMouseInput}
+                      </p>
+                    )}
+                  </div>
+                )}
+
+                {/* Other Features */}
+                {selectedProduct.otherFeatures && (
+                  <div>
+                    <h4 className="font-bold text-lg py-1">Other Features:</h4>
+                    {selectedProduct.otherFeatures.operatingSystem && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">
+                          Operating System :
+                        </span>
+                        {selectedProduct.otherFeatures.operatingSystem}
+                      </p>
+                    )}
+                    {selectedProduct.otherFeatures.connectivity && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Connectivity :</span>
+                        {selectedProduct.otherFeatures.connectivity}
+                      </p>
+                    )}
+                    {selectedProduct.otherFeatures.includedPeripherals && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">
+                          Included Peripherals :
+                        </span>
+                        {selectedProduct.otherFeatures.includedPeripherals}
+                      </p>
+                    )}
+                    {selectedProduct.otherFeatures.accessoriesSupport && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">
+                          Accessories Support :
+                        </span>
+                        {selectedProduct.otherFeatures.accessoriesSupport}
+                      </p>
+                    )}
+                    {selectedProduct.otherFeatures.webcam && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Webcam :</span>
+                        {selectedProduct.otherFeatures.webcam}
+                      </p>
+                    )}
+                    {selectedProduct.otherFeatures.waterDustResistance && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">
+                          Water Dust Resistance :
+                        </span>
+                        {selectedProduct.otherFeatures.waterDustResistance}
+                      </p>
+                    )}
+                    {selectedProduct.otherFeatures.speakers && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Speakers :</span>
+                        {selectedProduct.otherFeatures.speakers}
+                      </p>
+                    )}
+                    {selectedProduct.otherFeatures.colorOptions && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">colorOptions :</span>
+                        {selectedProduct.otherFeatures.colorOptions}
+                      </p>
+                    )}
+                    {selectedProduct.otherFeatures.operatingSystemVersion && (
+                      <p className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">
+                          Operating System Version :
+                        </span>
+                        {selectedProduct.otherFeatures.operatingSystemVersion}
+                      </p>
+                    )}
+                    {selectedProduct.otherFeatures.sensors && (
+                      <div className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Sensors :</span>
+                        <ul className="flex">
+                          {selectedProduct.otherFeatures.sensors.map(
+                            (color, index) => (
+                              <li className="mr-2 flex" key={index}>
+                                {color},
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                    {selectedProduct.otherFeatures.colorOptions && (
+                      <div className="border border-gray-400 py-2 px-5 grid grid-cols-2">
+                        <span className="font-semibold">Color Options :</span>
+                        <ul className="flex">
+                          {selectedProduct.otherFeatures.colorOptions.map(
+                            (color, index) => (
+                              <li className="mr-2 flex" key={index}>
+                                {color},
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
-            <p className="text-sm text-gray-600 mt-2">
-              {filters.priceRange[0]} - {filters.priceRange[1]} BDT
-            </p>
           </div>
-
-          {/* Operating System Filter */}
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Operating System</label>
-            <select
-              name="operatingSystem"
-              value={filters.operatingSystem}
-              onChange={handleFilterChange}
-              className="w-full p-2 border rounded bg-white"
-            >
-              <option value="">All</option>
-              {uniqueOperatingSystems.map((os, index) => (
-                <option key={index} value={os}>
-                  {os}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        {/* Products Grid */}
-        <div className="w-3/4 ml-6">
-          {/* Pagination */}
-          <div className="join py-5 flex justify-end">
-            {[...Array(totalPages)].map((_, index) => (
-              <button
-                key={index}
-                onClick={() => handlePageChange(index + 1)}
-                className={`join-item btn  text-lg text-white hover:text-black  ${
-                  index + 1 === currentPage
-                    ? "btn-active bg-blue-200 hover:bg-neutral-50"
-                    : "hover:bg-neutral-50"
-                }`}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-
-          {/* Products */}
-          <div className="grid grid-cols-3 gap-6">
-            {displayedProducts.length > 0 ? (
-              displayedProducts.map((product, index) => (
-                <AdvancedCard
-                  data={product}
-                  key={index}
-                  liked={liked[index]}
-                  toggleLike={() => toggleLike(index)}
-                />
-              ))
-            ) : (
-              <p>No products found.</p>
-            )}
-          </div>
-
-          {/* Pagination */}
-          <div className="join py-5 flex justify-end">
-            {[...Array(totalPages)].map((_, index) => (
-              <button
-                key={index}
-                onClick={() => handlePageChange(index + 1)}
-                className={`join-item btn  text-lg text-white hover:text-black  ${
-                  index + 1 === currentPage
-                    ? "btn-active bg-blue-200 hover:bg-neutral-50"
-                    : "hover:bg-neutral-50"
-                }`}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+        </dialog>
+      )}
     </div>
   );
 };
 
-export default ProductsMobile;
+export default ManageProducts;
