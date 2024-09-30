@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth"; // This should be your custom hook for using AuthContext
 import Swal from "sweetalert2";
 import { useState } from "react"; // Import useState
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const LoginPage = () => {
   const {
@@ -15,11 +16,23 @@ const LoginPage = () => {
   const { signIn, signInWithGoogle } = useAuth(); // Fixed method name from 'singIn' to 'signIn'
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosPublic = useAxiosPublic();
 
   const [loading, setLoading] = useState(false); // Add loading state
 
   const from = location.state?.from?.pathname || "/";
 
+  const currentDate = new Date();
+  const formattedDateTime = currentDate.toLocaleString("en-US", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
+  // Normal login
   const onSubmit = (data) => {
     setLoading(true); // Start loading
     signIn(data.email, data.password)
@@ -28,6 +41,7 @@ const LoginPage = () => {
         console.log(user);
         showSuccessLogInAlert();
         navigate(from, { replace: true });
+        window.location.reload(); // Reload the page after navigation
       })
       .catch((error) => {
         console.log(error);
@@ -42,9 +56,44 @@ const LoginPage = () => {
     setLoading(true); // Start loading
     signInWithGoogle()
       .then((result) => {
-        console.log(result.user);
-        showSuccessLogInAlert();
-        navigate(from, { replace: true });
+        const user = result.user;
+        const userData = {
+          displayName: user.displayName,
+          email: user.email,
+          role: "member",
+          photoURL: user.photoURL,
+          createdDate: formattedDateTime,
+        };
+
+        // Check if user already exists
+        axiosPublic
+          .get("/usersData?email=" + user.email) // Check for existing user
+          .then((response) => {
+            if (response.data) {
+              // User exists, just log them in
+              showSuccessLogInAlert();
+              navigate(from, { replace: true });
+              window.location.reload(); // Reload the page after navigation
+            } else {
+              // User does not exist, insert user data
+              axiosPublic
+                .post("/users", userData) // Replace with your actual server endpoint
+                .then((response) => {
+                  console.log("User data pushed to the server:", response.data);
+                  showSuccessLogInAlert();
+                  navigate(from, { replace: true });
+                  window.location.reload(); // Reload the page after navigation
+                })
+                .catch((error) => {
+                  console.error("Failed to send user data:", error);
+                  showFailedLogInAlert(error.message);
+                });
+            }
+          })
+          .catch((error) => {
+            console.error("Error checking user data:", error);
+            showFailedLogInAlert(error.message);
+          });
       })
       .catch((error) => {
         console.error(error);

@@ -133,16 +133,16 @@ const Navbar = () => {
           {user ? (
             <div className="dropdown">
               <div
-                className="flex items-center px-2"
+                className="flex items-center pr-5 bg-green-300 hover:bg-green-200 rounded-full"
                 tabIndex={0}
                 role="button"
               >
                 <img
                   src={user.photoURL || userImage}
                   alt="User"
-                  className="w-12 h-12 "
+                  className="w-12 h-12 rounded-full"
                 />
-                <h2 className="font-semibold ml-2 text-lg">
+                <h2 className="font-semibold pl-2 text-lg">
                   {user.displayName}
                 </h2>
                 <ul
@@ -155,7 +155,7 @@ const Navbar = () => {
                     </p>
                   </li>
                   <li>
-                    <Link to={'/Dashboard'}>
+                    <Link to={"/Dashboard"}>
                       <p>Dashboard</p>
                     </Link>
                   </li>
@@ -163,11 +163,16 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <Link to={"/Login"}>
-              <button className="px-11 py-2 text-xl font-semibold bg-green-300 hover:bg-green-100 rounded-full">
-                Login
-              </button>
-            </Link>
+            <div className="text-xl font-semibold rounded-full bg-green-300 hover:bg-green-100">
+              <Link to={"/SignUp"}>
+                <button className="px-5 w-28">SignUp</button>
+              </Link>
+              <Link to={"/Login"}>
+                <button className="px-7 py-2 w-28 bg-green-400 rounded-full hover:bg-green-500">
+                  Login
+                </button>
+              </Link>
+            </div>
           )}
         </div>
       </div>

@@ -1,16 +1,19 @@
 import Swal from "sweetalert2";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useForm } from "react-hook-form";
 import { FaMobileScreen } from "react-icons/fa6";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
-const SignInPage = () => {
-  const { createUser } = useContext(AuthContext);
+const SignUp = () => {
+  const { createUser, updateUser } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
-  // React Hook Form setup
+  const [loading, setLoading] = useState(false); // New state for loading
+
   const {
     register,
     handleSubmit,
@@ -18,8 +21,26 @@ const SignInPage = () => {
     reset,
   } = useForm();
 
+  const currentDate = new Date();
+  const formattedDateTime = currentDate.toLocaleString("en-US", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+
   const onSubmit = (data) => {
-    const { email, password, displayName, photoURL, phoneNumber } = data;
+    const { email, password, displayName, photoURL } = data;
+
+    const UserData = {
+      name: displayName,
+      email: email,
+      role: "member",
+      creationTime: formattedDateTime,
+      photoURL: photoURL,
+    };
 
     // Validate password
     if (password.length < 6) {
@@ -38,31 +59,52 @@ const SignInPage = () => {
       return;
     }
 
-    // Register user without posting to an external server
-    createUser(email, password, displayName, photoURL, phoneNumber)
-      .then((result) => {
-        // Navigate to home or any specified page
-        navigate(location?.state ? location.state : "/");
+    setLoading(true); // Set loading to true when form is submitted
 
-        // Success alert
-        Swal.fire({
-          title: "Success!",
-          text: "New User has been Created",
-          icon: "success",
-          confirmButtonText: "Cool",
-        });
-
-        // Reset the form
-        reset();
+    // Create User
+    createUser(email, password)
+      .then((res) => {
+        const user = res.user;
+        console.log(user);
+        // Update user with additional data (displayName, photoURL)
+        updateUser(displayName, photoURL)
+          .then(() => {
+            // Post user data to backend
+            axiosPublic.post("/users", UserData).then((res) => {
+              if (res.data.insertedId) {
+                showSuccessAlert();
+                reset();
+                navigate(location?.state ? location.state : "/");
+              }
+              setLoading(false); // Set loading to false after submission
+            });
+          })
+          .catch((error) => {
+            showErrorAlert("Failed to update user profile.");
+            setLoading(false); // Set loading to false on error
+            console.log(error);
+          });
       })
       .catch((error) => {
-        // Handle error
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: error.message,
-        });
+        showErrorAlert(error.message);
+        setLoading(false); // Set loading to false on error
       });
+  };
+
+  const showSuccessAlert = () => {
+    Swal.fire({
+      icon: "success",
+      title: "Sign Up Successful!",
+      text: "You are now a user. Welcome!",
+    });
+  };
+
+  const showErrorAlert = (errorMessage) => {
+    Swal.fire({
+      icon: "error",
+      title: "Sign Up Failed",
+      text: errorMessage,
+    });
   };
 
   return (
@@ -79,6 +121,7 @@ const SignInPage = () => {
             <p className="text-center text-2xl font-bold text-black pt-2 mb-6">
               Please Sign Up
             </p>
+
             {/* Name */}
             <div className="mb-6">
               <label className="block mb-1 text-gray-700 text-xl font-semibold">
@@ -86,9 +129,7 @@ const SignInPage = () => {
               </label>
               <input
                 type="text"
-                {...register("displayName", {
-                  required: "Name is required",
-                })}
+                {...register("displayName", { required: "Name is required" })}
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                 placeholder="John Doe"
               />
@@ -100,12 +141,10 @@ const SignInPage = () => {
             {/* Email */}
             <div className="mb-6">
               <label className="block mb-1 text-gray-700 text-xl font-semibold">
-                Email :
+                Email
               </label>
               <input
                 type="email"
-                placeholder="name@mail.com"
-                className="w-full p-3 border border-gray-300 rounded-md bg-white text-black"
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
@@ -113,11 +152,11 @@ const SignInPage = () => {
                     message: "Invalid email format",
                   },
                 })}
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                placeholder="name@mail.com"
               />
               {errors.email && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.email.message}
-                </p>
+                <p className="text-red-500">{errors.email.message}</p>
               )}
             </div>
 
@@ -137,56 +176,32 @@ const SignInPage = () => {
             {/* Password */}
             <div className="mb-6">
               <label className="block mb-1 text-gray-700 text-xl font-semibold">
-                Password :
+                Password
               </label>
               <input
                 type="password"
-                placeholder="********"
-                className="w-full p-3 border border-gray-300 rounded-md bg-white text-black"
                 {...register("password", {
                   required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters long",
-                  },
+                  minLength: { value: 6, message: "At least 6 characters" },
                 })}
-              />
-              {errors.password && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.password.message}
-                </p>
-              )}
-            </div>
-
-            {/* Recheck Password */}
-            <div className="mb-6">
-              <label className="block mb-1 text-gray-700 text-xl font-semibold">
-                Retype password :
-              </label>
-              <input
-                type="password"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
                 placeholder="********"
-                className="w-full p-3 border border-gray-300 rounded-md bg-white text-black"
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters long",
-                  },
-                })}
               />
               {errors.password && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.password.message}
-                </p>
+                <p className="text-red-500">{errors.password.message}</p>
               )}
             </div>
 
             <button
               type="submit"
-              className="w-full bg-green-500 hover:bg-green-300 text-white font-bold py-3 px-4 rounded"
+              className={`w-full ${
+                loading
+                  ? "bg-green-300 cursor-not-allowed"
+                  : "bg-green-500 hover:bg-green-300"
+              } text-white font-bold py-3 px-4 rounded`}
+              disabled={loading} // Disable the button while loading
             >
-              Sign Up
+              {loading ? "Signing Up..." : "Sign Up"} {/* Change button text */}
             </button>
 
             <p className="text-lg font-light text-black mt-2">
@@ -205,4 +220,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default SignUp;

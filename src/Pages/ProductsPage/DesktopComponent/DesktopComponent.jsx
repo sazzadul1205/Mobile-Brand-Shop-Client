@@ -33,7 +33,7 @@ const DesktopComponent = ({ DesktopProductsData }) => {
         </div>
         {/* Grid */}
         <div className="grid grid-cols-4 mx-2 gap-1">
-          {DesktopProductsData.map((mobile, index) => (
+          {DesktopProductsData.slice(0, 8).map((mobile, index) => (
             <AdvancedCard
               data={mobile}
               key={index}

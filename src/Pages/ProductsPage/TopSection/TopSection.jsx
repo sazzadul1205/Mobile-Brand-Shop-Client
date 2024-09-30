@@ -9,7 +9,7 @@ const TopSection = () => {
       {/* Categories */}
       <div className="dropdown">
         <button
-          className="bg-[#F16521] hover:bg-[#dbb39f] text-white hover:text-black flex items-center gap-5 text-xl py-2 px-5 rounded-full"
+          className="bg-orange-500 hover:bg-orange-600 text-white flex items-center gap-5 text-xl py-2 px-5 rounded-full"
           tabIndex={0}
           role="button"
         >
