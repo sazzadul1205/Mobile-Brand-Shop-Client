@@ -8,7 +8,7 @@ import ProductsMobile from "../Pages/ProductsMobile/ProductsMobile";
 import ProductLaptop from "../Pages/ProductLaptop/ProductLaptop";
 import ProductsTablets from "../Pages/ProductsTablets/ProductsTablets";
 import ProductsDesktops from "../Pages/ProductsDesktops/ProductsDesktops";
-import Error from "../Error/Error";
+// import Error from "../Error/Error";
 import Login from "../Auth/Login/Login";
 import SignUp from "../Auth/SignUp/SignUp";
 import DashboardLayout from "../Layouts/DashboardLayout";
@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    errorElement: <Error></Error>,
+    // errorElement: <Error></Error>,
     children: [
       {
         path: "/",

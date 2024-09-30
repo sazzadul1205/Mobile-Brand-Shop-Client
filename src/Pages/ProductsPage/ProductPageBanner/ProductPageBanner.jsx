@@ -1,28 +1,20 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types"; // Import PropTypes for type checking
 
-const ProductPageBanner = () => {
-  // Define the banner URLs directly in the array
-  const banners = [
-    "https://i.ibb.co/5nxwWnS/PB1.png",
-    "https://i.ibb.co/XJNG2Bb/PB2.png",
-    "https://i.ibb.co/S7DHBn4/PB3.png",
-    "https://i.ibb.co/1GSHvVj/PB4.png",
-    "https://i.ibb.co/5GpH7KC/PB5.png",
-  ];
-
+const ProductPageBanner = ({ ProductBannersData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    // Automatically switch banners every 3 seconds
+    // Automatically switch ProductBannersData every 3 seconds
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
-        prevIndex === banners.length - 1 ? 0 : prevIndex + 1
+        prevIndex === ProductBannersData.length - 1 ? 0 : prevIndex + 1
       );
     }, 3000);
 
     // Cleanup interval on component unmount
     return () => clearInterval(interval);
-  }, [banners.length]);
+  }, [ProductBannersData.length]); 
 
   return (
     <div className="relative w-full overflow-hidden h-[500px]">
@@ -31,17 +23,28 @@ const ProductPageBanner = () => {
         className="flex transition-transform duration-1000 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
-        {banners.map((banner, index) => (
+        {ProductBannersData.map((banner) => (
           <img
-            key={index}
-            src={banner}
-            alt={`Banner ${index + 1}`}
+            key={banner._id} 
+            src={banner.link} 
+            alt={banner.name} 
             className="w-full h-[500px] object-cover flex-shrink-0"
           />
         ))}
       </div>
     </div>
   );
+};
+
+// Prop types for type checking
+ProductPageBanner.propTypes = {
+  ProductBannersData: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default ProductPageBanner;

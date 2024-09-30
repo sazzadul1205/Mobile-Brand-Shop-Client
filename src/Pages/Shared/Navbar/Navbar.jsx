@@ -33,8 +33,6 @@ const Navbar = () => {
       });
   };
 
-  console.log(user);
-
   const navItems = [
     { label: "HOME", link: "/", subMenu: [] },
     { label: "PRODUCTS", link: "/Products", subMenu: [] },
@@ -91,7 +89,6 @@ const Navbar = () => {
         </div>
       </li>
     ));
-  console.log(user);
 
   return (
     <div
