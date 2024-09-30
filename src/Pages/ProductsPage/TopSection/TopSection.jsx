@@ -1,9 +1,55 @@
 import { IoMdMenu } from "react-icons/io";
 import { FaAngleDown, FaCartArrowDown } from "react-icons/fa";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import Loader from "../../../Components/Loader";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import { useContext } from "react";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const TopSection = () => {
+  const { user } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+
+  // Fetching Cart Data
+  const {
+    data: MyCartData,
+    isLoading: MyCartIsLoading,
+    error: MyCartError,
+  } = useQuery({
+    queryKey: ["MyCart"],
+    queryFn: () =>
+      axiosPublic.get(`/MyCart?email=${user.email}`).then((res) => res.data), // Fetch all items
+  });
+
+  // Loading state
+  if (MyCartIsLoading) {
+    return <Loader />;
+  }
+
+  // Error state
+  if (MyCartError) {
+    return (
+      <div className="h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-300 to-white">
+        <p className="text-center text-red-500 font-bold text-3xl mb-8">
+          Something went wrong. Please reload the page.
+        </p>
+        <button
+          className="px-6 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-400 transition duration-300"
+          onClick={() => window.location.reload()} // Inline reload function
+        >
+          Reload
+        </button>
+      </div>
+    );
+  }
+
+  // Calculate total price
+  const totalPrice = MyCartData.reduce((acc, item) => {
+    return acc + parseFloat(item.price) * item.quantity; // Convert price to float and multiply by quantity
+  }, 0);
+
   return (
     <div className="max-w-[1200px] mx-auto pt-5 pb-10 flex items-center gap-10">
       {/* Categories */}
@@ -64,10 +110,12 @@ const TopSection = () => {
       {/* Cash */}
       <div className="flex items-center text-2xl font-bold gap-4 text-white">
         <FaBangladeshiTakaSign className="text-black" />
-        <p>1000.00</p>
-        <div className="p-3 bg-green-700 hover:bg-green-300 hover:text-black border-2 border-green-950 rounded-full">
-          <FaCartArrowDown />
-        </div>
+        <p>{totalPrice}</p>
+        <Link to={"/Dashboard/Cart"}>
+          <div className="p-3 bg-green-700 hover:bg-green-300 hover:text-black border-2 border-green-950 rounded-full">
+            <FaCartArrowDown />
+          </div>
+        </Link>
       </div>
     </div>
   );

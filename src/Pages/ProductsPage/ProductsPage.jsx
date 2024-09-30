@@ -30,8 +30,8 @@ const ProductsPage = () => {
   } = useQuery({
     queryKey: ["MobileProducts"],
     queryFn: () => {
-      const limit = 8; 
-      const productType = "Mobile"; 
+      const limit = 8;
+      const productType = "Mobile";
       return axiosPublic
         .get(`/Products?limit=${limit}&productType=${productType}`)
         .then((res) => res.data);
@@ -46,8 +46,8 @@ const ProductsPage = () => {
   } = useQuery({
     queryKey: ["LaptopProducts"],
     queryFn: () => {
-      const limit = 8; 
-      const productType = "Laptop"; 
+      const limit = 8;
+      const productType = "Laptop";
       return axiosPublic
         .get(`/Products?limit=${limit}&productType=${productType}`)
         .then((res) => res.data);
@@ -62,8 +62,8 @@ const ProductsPage = () => {
   } = useQuery({
     queryKey: ["TabletProducts"],
     queryFn: () => {
-      const limit = 8; 
-      const productType = "Tablet"; 
+      const limit = 8;
+      const productType = "Tablet";
       return axiosPublic
         .get(`/Products?limit=${limit}&productType=${productType}`)
         .then((res) => res.data);
@@ -78,13 +78,14 @@ const ProductsPage = () => {
   } = useQuery({
     queryKey: ["DesktopProducts"],
     queryFn: () => {
-      const limit = 8; 
-      const productType = "Desktop"; 
+      const limit = 8;
+      const productType = "Desktop";
       return axiosPublic
         .get(`/Products?limit=${limit}&productType=${productType}`)
         .then((res) => res.data);
     },
   });
+
 
   // Loading state
   if (
