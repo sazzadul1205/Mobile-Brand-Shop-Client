@@ -2,29 +2,48 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../../Hooks/useAxiosPublic";
+import Loader from "../../../Components/Loader";
 
 const History = () => {
   const { user } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
 
-  // Sample order data (in-page JSON)
-  const orderHistory = [
-    {
-      id: 1,
-      totalPrice: "200",
-      totalQuantity: 3,
-      paymentStatus: "Paid",
-      shippingStatus: "On Transit",
-      orderDate: "02/15/2024",
-    },
-    {
-      id: 2,
-      totalPrice: "500",
-      totalQuantity: 5,
-      paymentStatus: "Pending",
-      shippingStatus: "Preparing",
-      orderDate: "03/10/2024",
-    },
-  ];
+  // Fetching Cart Data
+  const {
+    data: SellHistoryData,
+    isLoading: SellHistoryIsLoading,
+    error: SellHistoryError,
+  } = useQuery({
+    queryKey: ["SellHistory"],
+    queryFn: () =>
+      axiosPublic
+        .get(`/SellHistory?email=${user.email}`)
+        .then((res) => res.data),
+  });
+
+  // Loading state
+  if (SellHistoryIsLoading) {
+    return <Loader />;
+  }
+
+  // Error state
+  if (SellHistoryError) {
+    return (
+      <div className="h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-300 to-white">
+        <p className="text-center text-red-500 font-bold text-3xl mb-8">
+          Something went wrong. Please reload the page.
+        </p>
+        <button
+          className="px-6 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-400 transition duration-300"
+          onClick={() => window.location.reload()}
+        >
+          Reload
+        </button>
+      </div>
+    );
+  }
 
   // Function to handle the invoice download
   const handleDownloadInvoice = (orderId) => {
@@ -56,7 +75,6 @@ const History = () => {
             <tr>
               <th>No</th>
               <th>Total Price</th>
-              <th>Total Quantity</th>
               <th>Payment Status</th>
               <th>Shipping Status</th>
               <th>Order Date</th>
@@ -65,16 +83,15 @@ const History = () => {
           </thead>
           <tbody>
             {/* Map through the orderHistory array to display rows */}
-            {orderHistory.map((order, index) => (
+            {SellHistoryData.map((order, index) => (
               <tr key={order.id}>
                 <th>{index + 1}</th>
                 <td className="flex items-center">
-                  {order.totalPrice} <FaBangladeshiTakaSign className="ml-2" />
+                  {order.totalAmount} <FaBangladeshiTakaSign className="ml-2" />
                 </td>
-                <td>{order.totalQuantity}</td>
                 <td>{order.paymentStatus}</td>
                 <td>{order.shippingStatus}</td>
-                <td>{order.orderDate}</td>
+                <td>{order.paymentDate}</td>
                 <td>
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"

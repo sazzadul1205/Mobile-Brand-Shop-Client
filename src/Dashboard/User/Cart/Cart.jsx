@@ -19,7 +19,8 @@ const Cart = () => {
     refetch: MyCartRefetch,
   } = useQuery({
     queryKey: ["MyCart"],
-    queryFn: () => axiosPublic.get(`/MyCart?email=${user.email}`).then((res) => res.data), // Fetch all items
+    queryFn: () =>
+      axiosPublic.get(`/MyCart?email=${user.email}`).then((res) => res.data),
   });
 
   // Loading state
@@ -36,7 +37,7 @@ const Cart = () => {
         </p>
         <button
           className="px-6 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-400 transition duration-300"
-          onClick={() => window.location.reload()} // Inline reload function
+          onClick={() => window.location.reload()}
         >
           Reload
         </button>
@@ -44,7 +45,7 @@ const Cart = () => {
     );
   }
 
-  // Delete
+  // Delete item from cart
   const handleDelete = async (itemId, itemName) => {
     try {
       const result = await showConfirmationAlert(
@@ -72,20 +73,69 @@ const Cart = () => {
 
   // Calculate total price
   const totalPrice = MyCartData.reduce((acc, item) => {
-    return acc + parseFloat(item.price) * item.quantity; // Convert price to float and multiply by quantity
+    return acc + parseFloat(item.price) * item.quantity;
   }, 0);
+
+  // Payment
+  const handlePayment = async () => {
+    try {
+      const paymentData = {
+        paidBy: user.email,
+        totalAmount: totalPrice.toFixed(2),
+        paymentStatus: "Payed",
+        shippingStatus: "Ordered",
+        paymentDate: new Date().toLocaleString(),
+        items: MyCartData.map((item) => ({
+          itemId: item._id,
+          model: item.model,
+          brand: item.brand,
+          productType: item.productType,
+          price: item.price,
+          quantity: item.quantity,
+        })),
+      };
+
+      // Send payment data to the server
+      await axiosPublic.post("/SellHistory", paymentData);
+
+      // Show payment success alert
+      Swal.fire(
+        "Payment Successful!",
+        "Your payment has been processed.",
+        "success"
+      );
+
+      // Delete each item from the cart after payment
+      for (const item of MyCartData) {
+        await axiosPublic.delete(`/MyCart/${item._id}`);
+      }
+
+      // Refetch the cart data after deletion
+      MyCartRefetch();
+    } catch (error) {
+      console.error("Error processing payment:", error);
+      Swal.fire(
+        "Error!",
+        "There was a problem processing your payment.",
+        "error"
+      );
+    }
+  };
 
   return (
     <div className="bg-white h-screen ml-1">
       {/* Cart and payment */}
       <div className="flex justify-between px-5 py-8 text-black border-b border-black mx-2">
         <div>
-          <p className="text-2xl font-bold">My Cart </p>
+          <p className="text-2xl font-bold">My Cart</p>
           <span className="text-md font-normal">
             {user?.displayName}: ({user?.email})
           </span>
         </div>
-        <button className="text-xl px-10 py-1 bg-orange-500 hover:bg-orange-200 hover:text-black rounded-full text-white">
+        <button
+          onClick={handlePayment}
+          className="text-xl px-16 py-1 my-3 bg-orange-500 hover:bg-orange-600 rounded-full font-semibold text-white"
+        >
           Pay
         </button>
       </div>
@@ -128,14 +178,13 @@ const Cart = () => {
                   <img
                     src={item.image}
                     alt={item.model}
-                    className="w-16 h-16" // Fixed the height class
+                    className="w-16 h-16"
                   />
                 </td>
                 <td>{item.model}</td>
                 <td>{item.brand}</td>
                 <td>{item.productType}</td>
                 <td>{item.quantity}</td>
-                {/* Calculate total price for each item */}
                 <td>{(parseFloat(item.price) * item.quantity).toFixed(2)}</td>
                 <td>
                   <button

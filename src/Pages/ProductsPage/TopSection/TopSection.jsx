@@ -52,6 +52,7 @@ const TopSection = () => {
 
   return (
     <div className="max-w-[1200px] mx-auto pt-5 pb-10 flex items-center gap-10">
+      
       {/* Categories */}
       <div className="dropdown">
         <button
