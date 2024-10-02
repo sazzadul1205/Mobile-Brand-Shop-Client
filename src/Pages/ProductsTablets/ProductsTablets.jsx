@@ -161,7 +161,7 @@ const ProductsTablets = () => {
   }
 
   return (
-    <div className="bg-gradient-to-b from-green-500 to-white py-24 text-black">
+    <div className="bg-gradient-to-b from-green-500 to-white py-24 text-black mt-14">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Tablet Brand Shop || Products Tablet</title>

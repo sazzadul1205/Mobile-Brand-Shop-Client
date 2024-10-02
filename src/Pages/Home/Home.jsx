@@ -78,7 +78,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className="mt-4">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Mobile Brand Shop || Home</title>

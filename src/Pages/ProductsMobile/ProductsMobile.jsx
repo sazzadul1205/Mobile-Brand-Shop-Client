@@ -162,7 +162,7 @@ const ProductsMobile = () => {
   }
 
   return (
-    <div className="bg-gradient-to-b from-green-500 to-white py-24 text-black">
+    <div className="bg-gradient-to-b from-green-500 to-white py-24 text-black mt-14">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Mobile Brand Shop || Products Mobile</title>
