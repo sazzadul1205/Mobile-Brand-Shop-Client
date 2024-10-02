@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
+import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const AddLaptop = () => {
   const { register, handleSubmit, reset } = useForm();
   const [colorOptions, setColorOptions] = useState([]); // State for color options
+  const axiosPublic = useAxiosPublic();
 
   const onSubmit = (data) => {
-    // You will receive form data as 'data'
     const formattedData = {
       brand: data.brand,
       image: data.image,
@@ -16,7 +18,8 @@ const AddLaptop = () => {
       inStock: data.inStock,
       price: data.price,
       releaseDate: data.releaseDate,
-      ProductType: "Laptop",
+      productType: "Laptop",
+      postedBy: "Admin",
       weightAndDimensions: {
         height: data.height,
         width: data.width,
@@ -54,18 +57,29 @@ const AddLaptop = () => {
       biometrics: data.biometrics,
       otherFeatures: {
         operatingSystem: data.operatingSystem,
-        connectivity: data.connectivity, 
-        webcam: data.webcam, 
-        speakers: data.speakers, 
-        colorOptions: data.colorOptions, 
+        connectivity: data.connectivity,
+        webcam: data.webcam,
+        speakers: data.speakers,
+        colorOptions: data.colorOptions,
       },
     };
 
-    console.log(formattedData);
-
-    // Perform any action with the collected data here, such as sending it to a backend or updating the UI
-    reset(); // Reset the form after submission
-    setColorOptions([]); // Reset color options list
+    axiosPublic
+      .post("/Products", formattedData)
+      .then((response) => {
+        console.log(response);
+        Swal.fire("Added!", "The item has been added to your cart.", "success");
+        reset();
+        setColorOptions([]); // Reset color options list
+      })
+      .catch((error) => {
+        console.error("Error adding to cart:", error);
+        Swal.fire(
+          "Error!",
+          "There was a problem adding the item to your cart.",
+          "error"
+        );
+      });
   };
 
   // Function to add a new color option

@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
+import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const AddTablet = () => {
   const { register, handleSubmit, reset } = useForm();
   const [colorOptions, setColorOptions] = useState([]);
+  const axiosPublic = useAxiosPublic();
 
   const onSubmit = (data) => {
     const formattedData = {
@@ -15,7 +18,9 @@ const AddTablet = () => {
       inStock: data.inStock,
       price: data.price,
       operatingSystem: data.operatingSystem,
-      ProductType: "Tablet",
+      releaseDate: data.releaseDate,
+      productType: "Tablet",
+      postedBy: "Admin",
       weightAndDimensions: {
         height: data.height,
         width: data.width,
@@ -58,11 +63,23 @@ const AddTablet = () => {
       },
     };
 
-    console.log(formattedData);
+    axiosPublic
+      .post("/Products", formattedData)
+      .then((response) => {
+        console.log(response);
 
-    // Perform any action with the collected data here, such as sending it to a backend or updating the UI
-    reset(); // Reset the form after submission
-    setColorOptions([]); // Reset color options list
+        Swal.fire("Added!", "The item has been added to your cart.", "success");
+        reset();
+        setColorOptions([]); // Reset color options list
+      })
+      .catch((error) => {
+        console.error("Error adding to cart:", error);
+        Swal.fire(
+          "Error!",
+          "There was a problem adding the item to your cart.",
+          "error"
+        );
+      });
   };
 
   // Function to add a new color option

@@ -1,8 +1,11 @@
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
 
 const AddDesktop = () => {
   const { register, handleSubmit, reset } = useForm();
+  const axiosPublic = useAxiosPublic();
 
   const onSubmit = (data) => {
     const formattedData = {
@@ -13,7 +16,8 @@ const AddDesktop = () => {
       inStock: data.inStock,
       price: data.price,
       releaseDate: data.releaseDate,
-      ProductType: "Desktop",
+      productType: "Desktop",
+      postedBy: "Admin",
       weightAndDimensions: {
         height: data.height,
         width: data.width,
@@ -42,8 +46,22 @@ const AddDesktop = () => {
       },
     };
 
-    console.log(formattedData);
-    reset();
+    axiosPublic
+      .post("/Products", formattedData)
+      .then((response) => {
+        console.log(response);
+
+        Swal.fire("Added!", "The item has been added to your cart.", "success");
+        reset();
+      })
+      .catch((error) => {
+        console.error("Error adding to cart:", error);
+        Swal.fire(
+          "Error!",
+          "There was a problem adding the item to your cart.",
+          "error"
+        );
+      });
   };
 
   const InputField = ({ label, name, register }) => {
@@ -141,13 +159,6 @@ const AddDesktop = () => {
             {/* Price */}
             <InputField label="Price" name="price" register={register} />
 
-            {/* Operating System */}
-            <InputField
-              label="Operating System"
-              name="operatingSystem"
-              register={register}
-            />
-
             {/* Release Date */}
             <InputField
               label="Release Date"
@@ -173,35 +184,6 @@ const AddDesktop = () => {
               <InputField label="Width" name="width" register={register} />
               <InputField label="Depth" name="depth" register={register} />
               <InputField label="Weight" name="weight" register={register} />
-            </div>
-
-            {/* display */}
-            <div className="border-b border-gray-400 mx-2">
-              <h3 className="font-bold text-lg py-2">Display:</h3>
-              {/* Screen Size */}
-              <InputField
-                label="Screen Size"
-                name="screenSize"
-                register={register}
-              />
-              {/* Resolution */}
-              <InputField
-                label="Resolution"
-                name="resolution"
-                register={register}
-              />
-              {/* Display Type */}
-              <InputField
-                label="Display Type"
-                name="displayType"
-                register={register}
-              />
-              {/* Refresh Rate */}
-              <InputField
-                label="Refresh Rate"
-                name="refreshRate"
-                register={register}
-              />
             </div>
 
             {/* performance */}

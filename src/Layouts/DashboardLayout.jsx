@@ -1,20 +1,92 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { FaArrowLeft, FaMobileScreen } from "react-icons/fa6";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
+import useAxiosPublic from "../Hooks/useAxiosPublic";
+import Loader from "../Components/Loader";
+import { useQuery } from "@tanstack/react-query";
 
 const DashboardLayout = () => {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
 
-  // Admin Links
+  // Admin/Manager Links
   const AdminNavLink = [
     { to: "Cart", label: "Cart" },
     { to: "History", label: "History" },
-    { to: "AddContent", label: "Add Content" },
+    { to: "AddProduct", label: "Add Product" },
     { to: "ManageDelivery", label: "Manage Delivery" },
     { to: "ManageProducts", label: "Manage Products" },
+    { to: "ManageUsers", label: "Manage Users" },
+    { to: "ManageBlogs", label: "Manage Blogs" },
+    { to: "ManageHomeBanner", label: "Manage Home Banner" },
+    { to: "ManageProductBanners", label: "Manage Product Banners" },
+    { to: "ManageBrands", label: "Manage Brands" },
+    { to: "ManageFAQ", label: "Manage FAQ" },
   ];
 
-  const adminNav = AdminNavLink.map((link) => {
+  useEffect(() => {
+    // Navigate to the Cart page when the component mounts
+    navigate("/Dashboard/Cart");
+  }, [navigate]);
+
+  // Fetching User Data with Role
+  const {
+    data: usersData,
+    isLoading: usersDataIsLoading,
+    error: usersDataError,
+  } = useQuery({
+    queryKey: ["usersData"],
+    queryFn: () =>
+      axiosPublic.get(`/usersData?email=${user.email}`).then((res) => res.data),
+  });
+
+  // Loading state
+  if (usersDataIsLoading) {
+    return <Loader />;
+  }
+
+  // Error state
+  if (usersDataError) {
+    return (
+      <div className="h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-300 to-white">
+        <p className="text-center text-red-500 font-bold text-3xl mb-8">
+          Something went wrong. Please reload the page.
+        </p>
+        <button
+          className="px-6 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-400 transition duration-300"
+          onClick={() => window.location.reload()}
+        >
+          Reload
+        </button>
+      </div>
+    );
+  }
+
+  const userRole = usersData.role;
+
+  // Filtered Admin Links based on user role
+  const adminNav = AdminNavLink.filter((link) => {
+    // Restrict certain links to admin/manager roles
+    const restrictedLinks = [
+      "AddProduct",
+      "ManageDelivery",
+      "ManageProducts",
+      "ManageUsers",
+      "ManageBlogs",
+      "ManageHomeBanner",
+      "ManageProductBanners",
+      "ManageBrands",
+      "ManageFAQ",
+    ];
+
+    if (restrictedLinks.includes(link.to)) {
+      return userRole === "admin" || userRole === "manager";
+    }
+
+    return true; // Allow other links for all users
+  }).map((link) => {
     const randomColor = "#0df205"; // Fixed random color issue
 
     return (
@@ -22,7 +94,7 @@ const DashboardLayout = () => {
         <NavLink
           to={link.to}
           className={({ isActive }) =>
-            `text-lg font-semibold relative group  py-2 px-4 transition-colors duration-300 text-black hover:text-black ${
+            `text-lg font-semibold relative group py-2 px-4 transition-colors duration-300 text-black hover:text-black ${
               isActive ? "text-black" : "text-black"
             }`
           }
@@ -40,11 +112,6 @@ const DashboardLayout = () => {
     );
   });
 
-  useEffect(() => {
-    // Navigate to the Cart page when the component mounts
-    navigate("/Dashboard/Cart");
-  }, [navigate]);
-
   return (
     <div className="bg-gradient-to-br from-green-500 to-emerald-100">
       <div className="flex max-w-[1200px] mx-auto">
@@ -59,7 +126,7 @@ const DashboardLayout = () => {
           </NavLink>
 
           {/* Icons */}
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-5">
             <h1 className="text-2xl font-bold flex items-center text-black">
               <FaMobileScreen className="mr-2 text-black" />
               Mobile Brand Shop

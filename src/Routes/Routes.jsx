@@ -8,7 +8,7 @@ import ProductsMobile from "../Pages/ProductsMobile/ProductsMobile";
 import ProductLaptop from "../Pages/ProductLaptop/ProductLaptop";
 import ProductsTablets from "../Pages/ProductsTablets/ProductsTablets";
 import ProductsDesktops from "../Pages/ProductsDesktops/ProductsDesktops";
-// import Error from "../Error/Error";
+import Error from "../Error/Error";
 import Login from "../Auth/Login/Login";
 import SignUp from "../Auth/SignUp/SignUp";
 import DashboardLayout from "../Layouts/DashboardLayout";
@@ -17,11 +17,18 @@ import History from "../Dashboard/User/History/History";
 import AddContent from "../Dashboard/Admin/AddContent/AddContent";
 import ManageDelivery from "../Dashboard/Admin/ManageDelivery/ManageDelivery";
 import ManageProducts from "../Dashboard/Admin/ManageProducts/ManageProducts";
+import ManageUsers from "../Dashboard/Admin/ManageUsers/ManageUsers";
+import ManageBlogs from "../Dashboard/Admin/ManageBlogs/ManageBlogs";
+import ManageHomeBanner from "../Dashboard/Admin/ManageHomeBanner/ManageHomeBanner";
+import ManageBrands from "../Dashboard/Admin/ManageBrands/ManageBrands";
+import ManageFAQ from "../Dashboard/Admin/MAnageFAQ/MAnageFAQ";
+import ManageProductBanners from "../Dashboard/Admin/ManageProductBanners/ManageProductBanners";
+import PrivateRoutes from "./PrivateRoutes";
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
-    // errorElement: <Error></Error>,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/",
@@ -71,23 +78,91 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "Cart",
-        element: <Cart></Cart>,
+        element: (
+          <PrivateRoutes>
+            <Cart></Cart>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "History",
-        element: <History></History>,
+        element: (
+          <PrivateRoutes>
+            <History></History>
+          </PrivateRoutes>
+        ),
       },
       {
-        path: "AddContent",
-        element: <AddContent></AddContent>,
+        path: "AddProduct",
+        element: (
+          <PrivateRoutes>
+            <AddContent></AddContent>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "ManageDelivery",
-        element: <ManageDelivery></ManageDelivery>,
+        element: (
+          <PrivateRoutes>
+            <ManageDelivery></ManageDelivery>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "ManageProducts",
-        element: <ManageProducts></ManageProducts>,
+        element: (
+          <PrivateRoutes>
+            <ManageProducts></ManageProducts>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "ManageUsers",
+        element: (
+          <PrivateRoutes>
+            <ManageUsers></ManageUsers>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "ManageBlogs",
+        element: (
+          <PrivateRoutes>
+            <ManageBlogs></ManageBlogs>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "ManageHomeBanner",
+        element: (
+          <PrivateRoutes>
+            <ManageHomeBanner></ManageHomeBanner>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "ManageProductBanners",
+        element: (
+          <PrivateRoutes>
+            <ManageProductBanners></ManageProductBanners>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "ManageBrands",
+        element: (
+          <PrivateRoutes>
+            <ManageBrands></ManageBrands>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "ManageFAQ",
+        element: (
+          <PrivateRoutes>
+            <ManageFAQ></ManageFAQ>
+          </PrivateRoutes>
+        ),
       },
     ],
   },

@@ -1,24 +1,27 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
+import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const AddMobile = () => {
   const { register, handleSubmit, reset } = useForm();
   const [sensors, setSensors] = useState([]); // State to store the sensors
   const [colorOptions, setColorOptions] = useState([]); // State for color options
+  const axiosPublic = useAxiosPublic();
 
   const onSubmit = (data) => {
-    // You will receive form data as 'data'
     const formattedData = {
       brand: data.brand,
       image: data.image,
       model: data.model,
       condition: data.condition,
-      inStock: data.inStock,
-      price: data.price,
+      inStock: data.inStock, // Convert string to boolean
+      price: parseFloat(data.price),
       operatingSystem: data.operatingSystem,
       releaseDate: data.releaseDate,
-      ProductType: "Mobile",
+      productType: "Mobile",
+      postedBy: "Admin",
       weightAndDimensions: {
         height: data.height,
         width: data.width,
@@ -60,14 +63,26 @@ const AddMobile = () => {
         operatingSystemVersion: data.operatingSystemVersion,
         colorOptions: colorOptions,
       },
-    };
+    };    
 
-    console.log(formattedData);
-
-    // Perform any action with the collected data here, such as sending it to a backend or updating the UI
-    reset(); // Reset the form after submission
-    setSensors([]); // Reset sensors list
-    setColorOptions([]); // Reset color options list
+    axiosPublic
+      .post("/Products", formattedData)
+      .then((response) => {
+        console.log(response);
+        
+        Swal.fire("Added!", "The item has been added to your cart.", "success");
+        reset();
+        setSensors([]);
+        setColorOptions([]); // Reset color options list
+      })
+      .catch((error) => {
+        console.error("Error adding to cart:", error);
+        Swal.fire(
+          "Error!",
+          "There was a problem adding the item to your cart.",
+          "error"
+        );
+      });
   };
 
   const addSensor = (sensor) => {
@@ -107,11 +122,11 @@ const AddMobile = () => {
 
   // Define prop types
   InputField.propTypes = {
-    label: PropTypes.string.isRequired, // label should be a required string
-    name: PropTypes.string.isRequired, // name should be a required string
-    register: PropTypes.func.isRequired, // register should be a required function
+    label: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    register: PropTypes.func.isRequired,
   };
-  
+
   return (
     <div className="p-5 ">
       <h2 className="text-xl font-bold mb-4 text-black">Add Mobile Data</h2>
