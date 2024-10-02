@@ -12,7 +12,7 @@ const TopSection = () => {
   const { user } = useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
 
-  // Fetching Cart Data
+  // Fetching Cart Data only if user is logged in
   const {
     data: MyCartData,
     isLoading: MyCartIsLoading,
@@ -20,16 +20,17 @@ const TopSection = () => {
   } = useQuery({
     queryKey: ["MyCart"],
     queryFn: () =>
-      axiosPublic.get(`/MyCart?email=${user.email}`).then((res) => res.data), // Fetch all items
+      axiosPublic.get(`/MyCart?email=${user?.email}`).then((res) => res.data),
+    enabled: !!user, // Query runs only if user exists
   });
 
   // Loading state
-  if (MyCartIsLoading) {
+  if (MyCartIsLoading && user) {
     return <Loader />;
   }
 
   // Error state
-  if (MyCartError) {
+  if (MyCartError && user) {
     return (
       <div className="h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-300 to-white">
         <p className="text-center text-red-500 font-bold text-3xl mb-8">
@@ -46,13 +47,12 @@ const TopSection = () => {
   }
 
   // Calculate total price
-  const totalPrice = MyCartData.reduce((acc, item) => {
+  const totalPrice = MyCartData?.reduce((acc, item) => {
     return acc + parseFloat(item.price) * item.quantity; // Convert price to float and multiply by quantity
   }, 0);
 
   return (
     <div className="max-w-[1200px] mx-auto pt-5 pb-10 flex items-center gap-10">
-      
       {/* Categories */}
       <div className="dropdown">
         <button
@@ -108,16 +108,27 @@ const TopSection = () => {
         </svg>
       </label>
 
-      {/* Cash */}
-      <div className="flex items-center text-2xl font-bold gap-4 text-white">
-        <FaBangladeshiTakaSign className="text-black" />
-        <p>{totalPrice}</p>
-        <Link to={"/Dashboard/Cart"}>
-          <div className="p-3 bg-green-700 hover:bg-green-300 hover:text-black border-2 border-green-950 rounded-full">
-            <FaCartArrowDown />
-          </div>
-        </Link>
-      </div>
+      {/* User Cart or Login */}
+      {user ? (
+        <div className="flex items-center text-2xl font-bold gap-4 text-white">
+          {/* Total Price */}
+          <FaBangladeshiTakaSign className="text-black" />
+          <p>{totalPrice}</p>
+          <Link to={"/Dashboard/Cart"}>
+            <div className="p-3 bg-green-700 hover:bg-green-300 hover:text-black border-2 border-green-950 rounded-full">
+              <FaCartArrowDown />
+            </div>
+          </Link>
+        </div>
+      ) : (
+        <div className="ml-auto">
+          <Link to="/login">
+            <button className="px-10 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition duration-300">
+              Login
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

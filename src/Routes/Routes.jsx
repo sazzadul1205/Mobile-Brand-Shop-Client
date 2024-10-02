@@ -23,7 +23,7 @@ import ManageHomeBanner from "../Dashboard/Admin/ManageHomeBanner/ManageHomeBann
 import ManageBrands from "../Dashboard/Admin/ManageBrands/ManageBrands";
 import ManageFAQ from "../Dashboard/Admin/MAnageFAQ/MAnageFAQ";
 import ManageProductBanners from "../Dashboard/Admin/ManageProductBanners/ManageProductBanners";
-import PrivateRoutes from "./PrivateRoutes";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -78,91 +78,47 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "Cart",
-        element: (
-          <PrivateRoutes>
-            <Cart></Cart>
-          </PrivateRoutes>
-        ),
+        element: <Cart></Cart>,
       },
       {
         path: "History",
-        element: (
-          <PrivateRoutes>
-            <History></History>
-          </PrivateRoutes>
-        ),
+        element: <History></History>,
       },
       {
         path: "AddProduct",
-        element: (
-          <PrivateRoutes>
-            <AddContent></AddContent>
-          </PrivateRoutes>
-        ),
+        element: <AddContent></AddContent>,
       },
       {
         path: "ManageDelivery",
-        element: (
-          <PrivateRoutes>
-            <ManageDelivery></ManageDelivery>
-          </PrivateRoutes>
-        ),
+        element: <ManageDelivery></ManageDelivery>,
       },
       {
         path: "ManageProducts",
-        element: (
-          <PrivateRoutes>
-            <ManageProducts></ManageProducts>
-          </PrivateRoutes>
-        ),
+        element: <ManageProducts></ManageProducts>,
       },
       {
         path: "ManageUsers",
-        element: (
-          <PrivateRoutes>
-            <ManageUsers></ManageUsers>
-          </PrivateRoutes>
-        ),
+        element: <ManageUsers></ManageUsers>,
       },
       {
         path: "ManageBlogs",
-        element: (
-          <PrivateRoutes>
-            <ManageBlogs></ManageBlogs>
-          </PrivateRoutes>
-        ),
+        element: <ManageBlogs></ManageBlogs>,
       },
       {
         path: "ManageHomeBanner",
-        element: (
-          <PrivateRoutes>
-            <ManageHomeBanner></ManageHomeBanner>
-          </PrivateRoutes>
-        ),
+        element: <ManageHomeBanner></ManageHomeBanner>,
       },
       {
         path: "ManageProductBanners",
-        element: (
-          <PrivateRoutes>
-            <ManageProductBanners></ManageProductBanners>
-          </PrivateRoutes>
-        ),
+        element: <ManageProductBanners></ManageProductBanners>,
       },
       {
         path: "ManageBrands",
-        element: (
-          <PrivateRoutes>
-            <ManageBrands></ManageBrands>
-          </PrivateRoutes>
-        ),
+        element: <ManageBrands></ManageBrands>,
       },
       {
         path: "ManageFAQ",
-        element: (
-          <PrivateRoutes>
-            <ManageFAQ></ManageFAQ>
-          </PrivateRoutes>
-        ),
+        element: <ManageFAQ></ManageFAQ>,
       },
     ],
   },

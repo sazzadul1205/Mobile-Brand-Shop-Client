@@ -15,6 +15,7 @@ const ProductPageBanner = ({ ProductBannersData }) => {
     // Cleanup interval on component unmount
     return () => clearInterval(interval);
   }, [ProductBannersData.length]); 
+  
 
   return (
     <div className="relative w-full overflow-hidden h-[500px]">

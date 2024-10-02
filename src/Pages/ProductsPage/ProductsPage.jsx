@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet";
 import DesktopComponent from "./DesktopComponent/DesktopComponent";
 import LaptopComponent from "./LaptopComponent/LaptopComponent";
 import MobileComponent from "./MobileComponent/MobileComponent";
@@ -14,11 +13,11 @@ const ProductsPage = () => {
 
   // Fetching Product Banners
   const {
-    data: ProductBannersData,
+    data: ProductBannersData = [],
     isLoading: ProductBannersIsLoading,
     error: ProductBannersError,
   } = useQuery({
-    queryKey: ["ProductBanners"],
+    queryKey: ["ProductBannersData"],
     queryFn: () => axiosPublic.get(`/ProductBanners`).then((res) => res.data),
   });
 
@@ -28,7 +27,7 @@ const ProductsPage = () => {
     isLoading: MobileProductsIsLoading,
     error: MobileProductsError,
   } = useQuery({
-    queryKey: ["MobileProducts"],
+    queryKey: ["MobileProductsData"],
     queryFn: () => {
       const limit = 8;
       const productType = "Mobile";
@@ -44,7 +43,7 @@ const ProductsPage = () => {
     isLoading: LaptopProductsIsLoading,
     error: LaptopProductsError,
   } = useQuery({
-    queryKey: ["LaptopProducts"],
+    queryKey: ["LaptopProductsData"],
     queryFn: () => {
       const limit = 8;
       const productType = "Laptop";
@@ -60,7 +59,7 @@ const ProductsPage = () => {
     isLoading: TabletProductsIsLoading,
     error: TabletProductsError,
   } = useQuery({
-    queryKey: ["TabletProducts"],
+    queryKey: ["TabletProductsData"],
     queryFn: () => {
       const limit = 8;
       const productType = "Tablet";
@@ -76,7 +75,7 @@ const ProductsPage = () => {
     isLoading: DesktopProductsIsLoading,
     error: DesktopProductsError,
   } = useQuery({
-    queryKey: ["DesktopProducts"],
+    queryKey: ["DesktopProductsData"],
     queryFn: () => {
       const limit = 8;
       const productType = "Desktop";
@@ -86,6 +85,7 @@ const ProductsPage = () => {
     },
   });
 
+  console.log(ProductBannersData);
 
   // Loading state
   if (
@@ -123,28 +123,29 @@ const ProductsPage = () => {
 
   return (
     <div className="bg-gradient-to-b from-green-400 to-green-300 py-10 pt-28 text-black">
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Mobile Brand Shop || Products Page</title>
-      </Helmet>
       {/* Search and Categories */}
       <TopSection></TopSection>
+
       {/* Banner */}
       <ProductPageBanner
         ProductBannersData={ProductBannersData}
       ></ProductPageBanner>
+
       {/* Mobile */}
       <MobileComponent
         MobileProductsData={MobileProductsData}
       ></MobileComponent>
+
       {/* Laptop */}
       <LaptopComponent
         LaptopProductsData={LaptopProductsData}
       ></LaptopComponent>
+
       {/* Tablet */}
       <TabletComponent
         TabletProductsData={TabletProductsData}
       ></TabletComponent>
+
       {/* Desktop */}
       <DesktopComponent
         DesktopProductsData={DesktopProductsData}
