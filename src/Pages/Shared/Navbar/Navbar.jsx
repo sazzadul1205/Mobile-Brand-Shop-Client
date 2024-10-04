@@ -224,7 +224,10 @@ const Navbar = () => {
                   <h2 className="font-semibold lg:pl-2 text-lg hidden lg:flex">
                     {user.displayName}
                   </h2>
-                  <ul className="dropdown-content menu bg-white rounded-box z-[1] w-52 p-2 mt-36 shadow right-3">
+                  <ul className="dropdown-content menu bg-white rounded-box z-[1] w-52 p-2 mt-36 shadow right-0">
+                    <li className="flex lg:hidden">
+                      <p>{user.displayName}</p>
+                    </li>
                     <li onClick={handleSignOut}>
                       <p className="w-full text-center bg-green-400 hover:bg-green-300 font-bold">
                         LogOut

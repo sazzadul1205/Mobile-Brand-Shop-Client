@@ -109,13 +109,14 @@ const SignUp = () => {
 
   return (
     <section className="bg-gradient-to-b from-green-300 to-green-100">
-      <div className="flex flex-col items-center justify-center px-6 mx-auto md:h-screen pt-20">
+      <div className="flex flex-col items-center justify-center md:px-6 py-8 mx-auto md:h-screen pt-28 md:pt-[500px] md:pb-[300px] lg:pb-0 lg:pt-0 lg:py-0">
         {/* Title */}
-        <a className="text-4xl font-bold flex items-center text-black mb-4">
+        <a className=" text-2xl md:text-4xl font-bold flex items-center text-black mb-4">
           <FaMobileScreen className="mr-2" />
           Mobile Brand Shop
         </a>
-        <div className="w-1/4 h-auto bg-gradient-to-br from-green-500 to-green-200 rounded-xl shadow-xl hover:shadow-2xl border-2 p-6">
+
+        <div className=" md:w-1/2 lg:w-1/4 h-auto bg-gradient-to-br from-green-500 to-green-200 rounded-xl shadow-xl hover:shadow-2xl mb-0 md:mb-36 lg:mb-0 p-6">
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)}>
             <p className="text-center text-2xl font-bold text-black pt-2 mb-6">
