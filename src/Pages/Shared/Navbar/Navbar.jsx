@@ -212,7 +212,7 @@ const Navbar = () => {
             {user ? (
               <div className="dropdown">
                 <div
-                  className="flex items-center pr-5 bg-green-300 hover:bg-green-200 rounded-full"
+                  className="flex items-center lg:pr-5 bg-green-300 hover:bg-green-200 rounded-full"
                   tabIndex={0}
                   role="button"
                 >
@@ -224,7 +224,7 @@ const Navbar = () => {
                   <h2 className="font-semibold lg:pl-2 text-lg hidden lg:flex">
                     {user.displayName}
                   </h2>
-                  <ul className="dropdown-content menu bg-white rounded-box z-[1] w-52 p-2 mt-36 shadow">
+                  <ul className="dropdown-content menu bg-white rounded-box z-[1] w-52 p-2 mt-36 shadow right-3">
                     <li onClick={handleSignOut}>
                       <p className="w-full text-center bg-green-400 hover:bg-green-300 font-bold">
                         LogOut
