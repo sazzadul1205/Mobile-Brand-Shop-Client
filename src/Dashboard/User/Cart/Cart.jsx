@@ -125,12 +125,14 @@ const Cart = () => {
   return (
     <div className="bg-white h-screen ml-1">
       {/* Cart and payment */}
-      <div className="flex justify-between px-5 py-8 text-black border-b border-black mx-2">
-        <div>
-          <p className="text-2xl font-bold">My Cart</p>
-          <span className="text-md font-normal">
-            {user?.displayName}: ({user?.email})
-          </span>
+      <div className="md:flex justify-between px-5 py-8 text-black border-b border-black mx-2 ">
+        <div className="flex items-cente ">
+          <div className="">
+            <p className="text-2xl font-bold ">My Cart</p>
+            <span className="text-md font-normal">
+              {user?.displayName}: ({user?.email})
+            </span>
+          </div>
         </div>
         <button
           onClick={handlePayment}
@@ -141,8 +143,8 @@ const Cart = () => {
       </div>
 
       {/* Search and Total Price */}
-      <div className="flex justify-between px-10 items-center">
-        <label className="input border border-black flex items-center gap-2 w-1/2 my-4 bg-white">
+      <div className="flex flex-col md:flex-row justify-between px-10 items-center">
+        <label className="input border border-black flex items-center gap-2 md:w-1/2 my-4 bg-white">
           <input type="text" className="grow bg-white" placeholder="Search" />
           <svg className="h-4 w-4">
             <FaSearch className="text-black" />
@@ -178,7 +180,7 @@ const Cart = () => {
                   <img
                     src={item.image}
                     alt={item.model}
-                    className="w-16 h-16"
+                    className="md:w-16 md:h-16"
                   />
                 </td>
                 <td>{item.model}</td>
