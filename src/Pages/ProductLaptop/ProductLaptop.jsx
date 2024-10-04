@@ -5,10 +5,15 @@ import { Helmet } from "react-helmet";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../Components/Loader";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const ProductLaptop = () => {
   const ProductPerPage = 9; // Display 9 products per page
   const axiosPublic = useAxiosPublic();
+  // Toggle filter visibility
+  const toggleFilterVisibility = () => {
+    setIsFilterVisible((prevState) => !prevState);
+  };
 
   // States for filters and pagination
   const [filters, setFilters] = useState({
@@ -89,6 +94,9 @@ const ProductLaptop = () => {
     );
   });
 
+  // State to toggle filter visibility
+  const [isFilterVisible, setIsFilterVisible] = useState(true);
+
   // Calculate total pages
   const totalPages = Math.ceil(LaptopProductsData.length / ProductPerPage);
 
@@ -137,15 +145,13 @@ const ProductLaptop = () => {
   if (
     LaptopProductsIsLoading ||
     LaptopBrandsIsLoading ||
-    LaptopConditionsIsLoading  ) {
+    LaptopConditionsIsLoading
+  ) {
     return <Loader />;
   }
 
   // Error state
-  if (
-    LaptopProductsError ||
-    LaptopBrandsError ||
-    LaptopConditionsError  ) {
+  if (LaptopProductsError || LaptopBrandsError || LaptopConditionsError) {
     return (
       <div className="h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-300 to-white">
         <p className="text-center text-red-500 font-bold text-3xl mb-8">
@@ -162,106 +168,118 @@ const ProductLaptop = () => {
   }
 
   return (
-    <div className="bg-gradient-to-b from-green-500 to-white py-24 text-black mt-14">
+    <div className="bg-gradient-to-b from-green-500 to-white lg:py-24 text-black pt-28 md:pt-16 lg:pt-11 lg:mt-14">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Laptop Brand Shop || Products Laptop</title>
       </Helmet>
       {/* Search and Categories */}
       <TopSection />
-      <div className="text-center mb-8">
+      <div className="text-center mb-8 lg:mb-0">
         <p className="font-bold text-3xl">View Our Laptops</p>
       </div>
-      <div className="flex w-full max-w-[1200px] mx-auto">
+      <div className="flex flex-col lg:flex-row w-full max-w-[1200px] mx-auto">
         {/* Filter Sidebar */}
-        <div className="w-1/4 bg-white p-4 rounded-md shadow-md">
-          <h3 className="text-lg font-bold mb-4">Filter by:</h3>
-
-          {/* Brand Filter */}
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Brand</label>
-            <select
-              name="brand"
-              value={filters.brand}
-              onChange={handleFilterChange}
-              className="w-full p-2 border rounded bg-white"
-            >
-              <option value="">All</option>
-              {uniqueBrands.map((brand, index) => (
-                <option key={index} value={brand}>
-                  {brand}
-                </option>
-              ))}
-            </select>
+        <div className="lg:w-1/4 bg-white p-4 rounded-md shadow-md">
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-bold mb-4">Filter by:</h3>
+            <button onClick={toggleFilterVisibility}>
+              {isFilterVisible ? <FaChevronUp /> : <FaChevronDown />}
+            </button>
           </div>
 
-          {/* Condition Filter */}
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Condition</label>
-            <select
-              name="condition"
-              value={filters.condition}
-              onChange={handleFilterChange}
-              className="w-full p-2 border rounded bg-white"
-            >
-              <option value="">All</option>
-              {uniqueConditions.map((condition, index) => (
-                <option key={index} value={condition}>
-                  {condition}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Price Range Filter */}
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Price Range</label>
-            <div className="flex space-x-2">
-              <div>
-                <label className="block mb-1">From</label>
-                <input
-                  type="number"
-                  value={filters.priceRange[0]}
-                  onChange={(e) => handlePriceRangeChange(e, 0)}
+          {/* Conditionally render filters based on state */}
+          {isFilterVisible && (
+            <div>
+              {/* Brand Filter */}
+              <div className="mb-4">
+                <label className="block font-semibold mb-2">Brand</label>
+                <select
+                  name="brand"
+                  value={filters.brand}
+                  onChange={handleFilterChange}
                   className="w-full p-2 border rounded bg-white"
-                />
+                >
+                  <option value="">All</option>
+                  {uniqueBrands.map((brand, index) => (
+                    <option key={index} value={brand}>
+                      {brand}
+                    </option>
+                  ))}
+                </select>
               </div>
-              <div>
-                <label className="block mb-1">To</label>
-                <input
-                  type="number"
-                  value={filters.priceRange[1]}
-                  onChange={(e) => handlePriceRangeChange(e, 1)}
+
+              {/* Condition Filter */}
+              <div className="mb-4">
+                <label className="block font-semibold mb-2">Condition</label>
+                <select
+                  name="condition"
+                  value={filters.condition}
+                  onChange={handleFilterChange}
                   className="w-full p-2 border rounded bg-white"
-                />
+                >
+                  <option value="">All</option>
+                  {uniqueConditions.map((condition, index) => (
+                    <option key={index} value={condition}>
+                      {condition}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Price Range Filter */}
+              <div className="mb-4">
+                <label className="block font-semibold mb-2">Price Range</label>
+                <div className="flex space-x-2">
+                  <div>
+                    <label className="block mb-1">From</label>
+                    <input
+                      type="number"
+                      value={filters.priceRange[0]}
+                      onChange={(e) => handlePriceRangeChange(e, 0)}
+                      className="w-full p-2 border rounded bg-white"
+                    />
+                  </div>
+                  <div>
+                    <label className="block mb-1">To</label>
+                    <input
+                      type="number"
+                      value={filters.priceRange[1]}
+                      onChange={(e) => handlePriceRangeChange(e, 1)}
+                      className="w-full p-2 border rounded bg-white"
+                    />
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600 mt-2">
+                  {filters.priceRange[0]} - {filters.priceRange[1]} BDT
+                </p>
+              </div>
+
+              {/* Operating System Filter */}
+              <div className="mb-4">
+                <label className="block font-semibold mb-2">
+                  Operating System
+                </label>
+                <select
+                  name="operatingSystem"
+                  value={filters.operatingSystem}
+                  onChange={handleFilterChange}
+                  className="w-full p-2 border rounded bg-white"
+                >
+                  <option value="">All</option>
+                  {uniqueOperatingSystems.map((os, index) => (
+                    <option key={index} value={os}>
+                      {os}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
-            <p className="text-sm text-gray-600 mt-2">
-              {filters.priceRange[0]} - {filters.priceRange[1]} BDT
-            </p>
-          </div>
-
-          {/* Operating System Filter */}
-          <div className="mb-4">
-            <label className="block font-semibold mb-2">Operating System</label>
-            <select
-              name="operatingSystem"
-              value={filters.operatingSystem}
-              onChange={handleFilterChange}
-              className="w-full p-2 border rounded bg-white"
-            >
-              <option value="">All</option>
-              {uniqueOperatingSystems.map((os, index) => (
-                <option key={index} value={os}>
-                  {os}
-                </option>
-              ))}
-            </select>
-          </div>
+          )}
         </div>
 
         {/* Products Grid */}
-        <div className="w-3/4 ml-6">
+        <div className="lg:w-3/4 mx-2 lg:ml-6">
           {/* Pagination */}
           <div className="join py-5 flex justify-end">
             {[...Array(totalPages)].map((_, index) => (
@@ -279,7 +297,7 @@ const ProductLaptop = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-1 md:gap-5">
             {displayedProducts.map((item, index) => (
               <AdvancedCard
                 key={item._id} // Ensure unique key
