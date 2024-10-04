@@ -98,23 +98,22 @@ const AdvancedCard = ({ data, index, liked, toggleLike }) => {
       <figure className="relative ">
         <img src={data.image} alt={data.model} className="w-full h-auto" />
         <div className="absolute top-2 right-2 flex flex-col gap-2">
-          {/* Like Icon */}
+          {/* Like and Expand Icons */}
           <div
-            className="cursor-pointer border border-gray-300 p-1 "
+            className="cursor-pointer border border-gray-300 p-1 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity"
             onClick={() => toggleLike(index)}
           >
             {liked ? (
-              <FcLike className="text-sm md:text-2xl" />
+              <FcLike className="text-lg md:text-2xl" />
             ) : (
-              <FcLikePlaceholder className="text-sm md:text-2xl" />
+              <FcLikePlaceholder className="text-lg md:text-2xl" />
             )}
           </div>
-          {/* Expand Icon */}
           <div
-            className="cursor-pointer border border-gray-300 p-1"
+            className="cursor-pointer border border-gray-300 p-1 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity"
             onClick={openModal}
           >
-            <FaExpandArrowsAlt className="text-sm md:text-2xl text-gray-500 hover:text-blue-600" />
+            <FaExpandArrowsAlt className="text-lg md:text-2xl text-gray-500 hover:text-blue-600" />
           </div>
         </div>
       </figure>
@@ -592,7 +591,6 @@ const AdvancedCard = ({ data, index, liked, toggleLike }) => {
           </div>
         </div>
       </dialog>
-
       {/* Login Prompt Modal */}
       <dialog id="login_prompt_modal" className="modal">
         <div className="modal-box bg-white max-w-md">
