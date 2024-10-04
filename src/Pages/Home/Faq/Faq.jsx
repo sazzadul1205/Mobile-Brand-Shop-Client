@@ -6,8 +6,8 @@ const Faq = ({ HomeFAQData }) => {
   const showMoreFaqs = () => setVisibleFaqs(HomeFAQData.length);
 
   return (
-    <div className="bg-gradient-to-b from-green-300 to-white py-24 text-black">
-      <div className="max-w-[1200px] mx-auto">
+    <div className="bg-gradient-to-b from-green-300 to-white lg:py-24 pb-5 text-black">
+      <div className="max-w-[1200px] mx-auto px-4">
         {/* Title */}
         <div className="mb-10 text-center">
           <p className="text-3xl font-bold">Customer Support</p>
@@ -18,11 +18,11 @@ const Faq = ({ HomeFAQData }) => {
         </div>
 
         {/* Accordion */}
-        <div className="w-[900px] mx-auto">
+        <div className="w-full mx-auto">
           {HomeFAQData.slice(0, visibleFaqs).map((faq, index) => (
             <div key={index} className="collapse collapse-arrow bg-white mb-2">
               <input type="radio" name="my-accordion-2" />
-              <div className="collapse-title text-xl font-medium">
+              <div className="collapse-title lg:text-xl font-medium">
                 {faq.question}
               </div>
               <div className="collapse-content">
@@ -33,10 +33,10 @@ const Faq = ({ HomeFAQData }) => {
 
           {/* Button to view more */}
           {visibleFaqs < HomeFAQData.length && (
-            <div className="text-right mt-6">
+            <div className="text-center mt-6">
               <button
                 onClick={showMoreFaqs}
-                className="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-400 transition"
+                className="px-6 py-3 bg-green-700 text-white rounded-md hover:bg-green-400 transition"
               >
                 View More
               </button>

@@ -10,15 +10,15 @@ const AboutUs = ({ HomeAboutUsData }) => {
     <div className="bg-gradient-to-b from-white to-green-300 py-24 text-black">
       <div className="max-w-[1200px] mx-auto">
         {/* Title */}
-        <div className="text-center">
-          <h1 className="text-4xl font-bold">{data.TitleData[0].title}</h1>
-          <p className="w-[1000px] mx-auto text-lg font-medium">
+        <div className="text-center px-4">
+          <h1 className="text-2xl lg:text-4xl font-bold">{data.TitleData[0].title}</h1>
+          <p className="lg:w-[1000px] mx-auto text-lg lg:font-medium pt-3 md:pt-0">
             {data.TitleData[0].subTitle}
           </p>
         </div>
 
         {/* Info */}
-        <div className="grid grid-cols-2 pt-10 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 pt-10 gap-10 px-1 md:px-5 lg::px-0">
           {data.content.map((item, index) => (
             <div className="flex" key={item.id}>
               <div className="flex-shrink-0 mr-5 mt-2">

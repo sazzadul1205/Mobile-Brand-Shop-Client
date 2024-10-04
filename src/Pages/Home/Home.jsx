@@ -78,7 +78,7 @@ const Home = () => {
   }
 
   return (
-    <div className="mt-4">
+    <div className="lg:mt-4">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Mobile Brand Shop || Home</title>

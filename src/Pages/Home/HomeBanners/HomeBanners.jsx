@@ -17,26 +17,14 @@ const HomeBanners = ({ HomeBannerData }) => {
   }, [HomeBannerData.length]);
 
   return (
-    <div className="relative w-full h-[800px] pt-24">
+    <div className="w-full h-[400px] lg:h-[800px] pt-20 lg:pt-24">
       {/* Banner Image */}
       <img
         src={HomeBannerData[currentIndex].Link}
         alt={HomeBannerData[currentIndex].name}
-        className="w-full h-[800px] transition-opacity duration-1000 ease-in-out"
+        className="w-full h-[400px] lg:h-[800px] transition-opacity duration-1000 ease-in-out"
       />
 
-      {/* Optional: Navigation Dots */}
-      <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {HomeBannerData.map((banner, index) => (
-          <div
-            key={banner._id}
-            className={`w-3 h-3 rounded-full cursor-pointer ${
-              currentIndex === index ? "bg-[#30A200]" : "bg-gray-400"
-            }`}
-            onClick={() => setCurrentIndex(index)}
-          ></div>
-        ))}
-      </div>
     </div>
   );
 };
