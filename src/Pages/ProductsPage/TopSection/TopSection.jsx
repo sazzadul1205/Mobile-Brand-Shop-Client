@@ -52,9 +52,9 @@ const TopSection = () => {
   }, 0);
 
   return (
-    <div className="max-w-[1200px] mx-auto pt-5 pb-10 flex items-center gap-10">
+    <div className="max-w-[1200px] justify-between mx-10 lg:mx-auto md:pt-5 md:pb-10 md:flex items-center gap-10">
       {/* Categories */}
-      <div className="dropdown">
+      <div className="dropdown hidden lg:flex">
         <button
           className="bg-orange-500 hover:bg-orange-600 text-white flex items-center gap-5 text-xl py-2 px-5 rounded-full"
           tabIndex={0}
@@ -92,7 +92,7 @@ const TopSection = () => {
       </div>
 
       {/* Search box */}
-      <label className="input input-bordered bg-white flex items-center gap-2 w-1/2">
+      <label className="input input-bordered bg-white flex items-center gap-2 w-full md:w-1/2">
         <input type="text" className="grow" placeholder="Search" />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +110,7 @@ const TopSection = () => {
 
       {/* User Cart or Login */}
       {user ? (
-        <div className="flex items-center text-2xl font-bold gap-4 text-white">
+        <div className="flex items-center justify-center text-2xl font-bold gap-4 text-white mt-5 md:mt-0">
           {/* Total Price */}
           <FaBangladeshiTakaSign className="text-black" />
           <p>{totalPrice}</p>
@@ -121,9 +121,9 @@ const TopSection = () => {
           </Link>
         </div>
       ) : (
-        <div className="ml-auto">
+        <div className=" flex justify-center my-5">
           <Link to="/login">
-            <button className="px-10 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition duration-300">
+            <button className=" px-10 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-lg transition duration-300">
               Login
             </button>
           </Link>

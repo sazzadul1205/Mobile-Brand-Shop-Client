@@ -1,45 +1,66 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Titles from "../../../Components/Titles";
 import { FaChevronRight } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import AdvancedCard from "../../../Components/AdvancedCard";
-import PropTypes from "prop-types"; // Import PropTypes
+import PropTypes from "prop-types";
 
 const MobileComponent = ({ MobileProductsData }) => {
-  // Create state to track liked items
-  const [liked, setLiked] = useState(Array(8).fill(false)); 
+  const [liked, setLiked] = useState(Array(8).fill(false));
+  const [itemsToShow, setItemsToShow] = useState(8); // Default to show 8 items for large screens
 
-  // Handle like click
   const toggleLike = (index) => {
     const updatedLikes = [...liked];
-    updatedLikes[index] = !updatedLikes[index]; // Toggle the like state
+    updatedLikes[index] = !updatedLikes[index];
     setLiked(updatedLikes);
   };
 
+  // Helper function to update the number of items to show based on screen size
+  const updateItemsToShow = () => {
+    if (window.innerWidth >= 1024) {
+      setItemsToShow(8); // Large screens (desktops)
+    } else if (window.innerWidth >= 768) {
+      setItemsToShow(6); // Tablets
+    } else {
+      setItemsToShow(4); // Mobile screens
+    }
+  };
+
+  useEffect(() => {
+    // Update the itemsToShow based on screen size on mount and when resizing
+    updateItemsToShow();
+    window.addEventListener("resize", updateItemsToShow);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", updateItemsToShow);
+    };
+  }, []);
+
   return (
     <div className="bg-gradient-to-b from-green-300 to-green-100">
-      <div className="max-w-[1200px] mx-auto gap-10">
+      <div className="max-w-[1200px] mx-auto gap-10 p-5">
         {/* Top */}
-        <div className="flex justify-between items-center px-5 ">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-5">
           <Titles
             title={"Our Mobiles"}
             subtitle={"New products with updated stocks"}
           />
           <Link to={"/Products-Mobile"}>
-            <button className="py-2 px-5 font-bold rounded-full border-2 border-black hover:border-none text-black hover:text-white hover:bg-gray-500 flex items-center gap-4">
+            <button className="py-2 px-5 font-bold rounded-full border-2 border-black hover:border-none text-black hover:text-white hover:bg-gray-500 flex items-center gap-4 mt-3 md:mt-0">
               View All <FaChevronRight />
             </button>
           </Link>
         </div>
         {/* Grid */}
-        <div className="grid grid-cols-4 mx-2 gap-1">
-          {MobileProductsData.slice(0, 8).map((mobile, index) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:mx-2 gap-1 md:gap-4">
+          {MobileProductsData.slice(0, itemsToShow).map((mobile, index) => (
             <AdvancedCard
               data={mobile}
-              key={index}
+              key={mobile._id}
               index={index}
-              liked={liked[index]} // Pass the liked state for the current card
-              toggleLike={toggleLike} // Pass the toggleLike function
+              liked={liked[index]}
+              toggleLike={toggleLike}
             />
           ))}
         </div>

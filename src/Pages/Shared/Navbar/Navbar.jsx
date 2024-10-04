@@ -239,14 +239,16 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <div className="text-xl font-semibold rounded-full bg-green-300 hover:bg-green-100 flex">
+              <div className="text-xl font-semibold flex">
                 <Link to={"/SignUp"}>
-                  <button className="py-2 w-28 px-8 hidden lg:flex">
+                  <button className="py-2 px-5 w-28 hidden md:flex bg-green-300 hover:bg-green-100 rounded-l-full">
                     SignUp
                   </button>
                 </Link>
                 <Link to={"/Login"}>
-                  <button className="py-2 px-8 hidden lg:flex">Login</button>
+                  <button className="py-2 px-8 w-28  bg-green-400 hover:bg-green-600 rounded-none md:rounded-r-full">
+                    Login
+                  </button>
                 </Link>
               </div>
             )}

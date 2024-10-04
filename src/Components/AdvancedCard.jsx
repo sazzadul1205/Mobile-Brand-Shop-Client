@@ -90,43 +90,46 @@ const AdvancedCard = ({ data, index, liked, toggleLike }) => {
   };
 
   const goToLogin = () => {
-    // Replace with your actual login page route
     window.location.href = "/login"; // Change this to your login page path
   };
 
   return (
-    <div className="group card bg-white w-full z-10 shadow-xl rounded-none p-5 relative overflow-hidden transition-transform duration-300 transform hover:scale-105 hover:shadow-2xl">
-      <figure className="relative">
+    <div className="group card bg-white w-full z-10 shadow-xl rounded-none md:p-5 relative overflow-hidden transition-transform duration-300 transform hover:scale-105 hover:shadow-2xl">
+      <figure className="relative ">
         <img src={data.image} alt={data.model} className="w-full h-auto" />
-        <div>
+        <div className="absolute top-2 right-2 flex flex-col gap-2">
+          {/* Like Icon */}
           <div
-            className="absolute top-2 -right-10 group-hover:right-2 transition-all duration-500 ease-in-out cursor-pointer border border-gray-300 p-1"
+            className="cursor-pointer border border-gray-300 p-1 "
             onClick={() => toggleLike(index)}
           >
             {liked ? (
-              <FcLike className="text-2xl" />
+              <FcLike className="text-sm md:text-2xl" />
             ) : (
-              <FcLikePlaceholder className="text-2xl" />
+              <FcLikePlaceholder className="text-sm md:text-2xl" />
             )}
           </div>
+          {/* Expand Icon */}
           <div
-            className="absolute top-10 -right-10 group-hover:right-2 transition-all duration-500 ease-in-out cursor-pointer border border-gray-300 p-1"
+            className="cursor-pointer border border-gray-300 p-1"
             onClick={openModal}
           >
-            <FaExpandArrowsAlt className="text-2xl text-gray-500 hover:text-blue-600" />
+            <FaExpandArrowsAlt className="text-sm md:text-2xl text-gray-500 hover:text-blue-600" />
           </div>
         </div>
       </figure>
 
-      <div className="card-body text-left p-0">
-        <h2 className="card-title">{data.model}</h2>
-        {data.inStock && <p className="text-green-500">In Stock</p>}
-        <div className="flex items-center gap-4">
+      <div className="card-body text-left p-2 md:p-0 mt-4 ">
+        <h2 className="card-title text-sm  md:text-xl">{data.model}</h2>
+        {data.inStock && (
+          <p className="text-green-500 text-sm md:text-xl">In Stock</p>
+        )}
+        <div className="flex items-center gap-4 text-sm md:text-xl">
           <FaBangladeshiTakaSign className="text-black" />
           <p>{data.price}</p>
         </div>
         <button
-          className="bg-orange-500 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded-full mt-5"
+          className="bg-orange-500 hover:bg-orange-700 text-white font-semibold py-2 md:px-4 rounded-full md:mt-5 w-full text-sm md:text-lg"
           onClick={() => handleAddToCart(data)} // Pass the data to handleAddToCart
         >
           Add To Cart
@@ -135,15 +138,15 @@ const AdvancedCard = ({ data, index, liked, toggleLike }) => {
 
       {/* Modal for detailed view */}
       <dialog id="my_modal_2" className="modal">
-        <div className="modal-box bg-white max-w-5xl max-h-[800px]">
+        <div className="modal-box bg-white max-w-5xl max-h-[500px] lg:max-h-[800px]">
           <div className="border-b border-black pb-3 flex justify-between items-center px-10">
             <p className="text-xl font-bold">View More</p>
             <button className="font-bold text-3xl" onClick={closeModal}>
               &times;
             </button>
           </div>
-          <div className="flex justify-between px-10 py-5 gap-5">
-            
+
+          <div className="md:flex justify-between md:px-10 py-5 gap-5">
             {/* Left */}
             <div>
               <img src={data.image} alt={data.model} className="w-[400px]" />
@@ -586,7 +589,6 @@ const AdvancedCard = ({ data, index, liked, toggleLike }) => {
                 </div>
               )}
             </div>
-
           </div>
         </div>
       </dialog>
